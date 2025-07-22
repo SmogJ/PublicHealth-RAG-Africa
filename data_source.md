@@ -1,4 +1,6 @@
-Specific to Infectious Diseases and Rising NCDs in Africa:
+### Specific to Infectious Diseases and Rising NCDs in Africa:
+
+---
 
 Africa Centres for Disease Control and Prevention (Africa CDC): https://africacdc.org/
 
@@ -22,9 +24,9 @@ Redalyc: https://www.redalyc.org/
 
 SciELO (Scientific Electronic Library Online): https://www.scielo.org/
 
-___
 
 ### websites most relevant for obtaining Public Health research articles and data, along with their URLs:
+---
 
 **Preprint Servers and Repositories:**
 
