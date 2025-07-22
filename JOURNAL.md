@@ -4,7 +4,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ---
 
-## **Week 1 (July 8, 2025 - July 14, 2025)**
+## **Week 1 (July 14, 2025)**
 
 ### **Goals for the Week:**
 * Set up local development environment (Python virtual environment).
@@ -17,7 +17,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 * Initialized Git repository.
 * Created `README.md` outlining the project vision, problem, solution, and goals.
 * Created this `JOURNAL.md` for ongoing documentation.
-* [**Pending:** Provide initial data source URLs for testing.]
+* Provide initial data source URLs for testing.
 
 ### **Challenges Encountered & Solutions:**
 * _No significant challenges encountered yet in environment setup._
@@ -28,7 +28,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 * **Git & GitHub:** For version control, tracking changes, and enabling future collaboration. GitHub provides a remote backup and project visibility.
 
 ### **Next Steps:**
-* Provide Gemini with the specific URLs for initial data acquisition (WHO AFRO, Africa CDC, National MoH documents on Infectious Diseases and NCDs).
+*  Research and sort data sources (WHO AFRO, Africa CDC, National MoH documents on Infectious Diseases and NCDs).
 * Begin drafting Python scripts for web scraping (HTML) and PDF text extraction.
 
 ### **Lessons Learned:**
@@ -37,7 +37,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ---
 
-## **Week 2 (July 15, 2025 - July 21, 2025)**
+## **Week 2 (July 16, 2025 - July 22, 2025)**
 
 ### **Goals for the Week:**
 * Develop robust web scraping script for HTML content.
@@ -45,7 +45,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 * Implement initial data cleaning functions.
 
 ### **Progress Made:**
-* [Your progress here]
+* Research data sources element to understand data extraction strategy
 
 ### **Challenges Encountered & Solutions:**
 * [Your challenges here]
