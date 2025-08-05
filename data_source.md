@@ -4,21 +4,27 @@
 
 Africa Centres for Disease Control and Prevention (Africa CDC): https://africacdc.org/
 
-Surveillance and Disease Intelligence: https://africacdc.org/programme/surveillance-disease-intelligence/
+Surveillance and Disease Intelligence:  https://africacdc.org/programme/surveillance-disease-intelligence/
+
+Disease outbreak: https://africacdc.org/disease-outbreak/
+
+Journals for PH Africa: https://publichealthinafrica.org/index.php/jphia/pages/view/journal-information
 
 NCDs, Injuries Prevention and Control and Mental Health Promotion Strategy: https://africacdc.org/download/africa-cdc-non-communicable-diseases-injuries-prevention-and-control-and-mental-health-promotion-strategy-2022-26/
 
 WHO Regional Office for Africa (AFRO): https://www.afro.who.int/
 
-Publications: https://www.afro.who.int/publications
+Publications: https://www.afro.who.int/publications 
+            https://afrolib.afro.who.int/
 
-Noncommunicable Diseases: https://www.afro.who.int/health-topics/noncommunicable-diseases
+Noncommunicable Diseases: https://www.afro.who.int/health-topics/noncommunicable-diseases 
+                        https://aho.afro.who.int/trackers/af?tr=ocd&des=OTHER%20COMMUNICABLE%20DISEASES
 
-African Index Medicus (AIM): https://www.globalindexmedicus.net/biblioteca/aim/
+African Index Medicus (AIM): https://www.globalindexmedicus.net/biblioteca/aim/ /-- down not accessible
 
 African Journals Online (AJOL): https://www.ajol.info/
 
-The African Academy of Sciences (AAS): https://aasciences.africa/
+The African Academy of Sciences (AAS): https://aasciences.africa/ /-- not a good place to get public health data in africa
 
 Redalyc: https://www.redalyc.org/
 
