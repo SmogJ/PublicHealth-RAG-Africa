@@ -19,38 +19,32 @@ def main():
         # Print the number of found URLs for verification
         print(f"Found {len(story_urls)} news and story URLs.")
 
+
     # Define the data folder
     # Make sure the directory exists
-    data = Path("../../data")
+    data = Path("../data")
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
     data_file = data / "who_africa_features_stories.json"
-
-
+    data_file.touch(exist_ok=True)
+    
     # collect stories
     stories= []
 
     # Extract content from each story URL
-    for url in story_urls[:9]:
-        story_content = get_story_content(url)
-        stories.append(
-            {
-            "url":story_content[0],
-            "title":story_content[1],
-            "date_time":story_content[2],
-            "date":story_content[3],
-            "location":story_content[4],
-            "text_s":story_content[5],
-            "text_p":story_content[6],
-            }
-        )
-        print(f"Saving story {story_content[1]} to json file... \n")
+    for url in story_urls[:10]:
+        try:
+            # print(get_story_content(url))
+            story = get_story_content(url)           
+            stories.append(story)
         
+        except TypeError:
+            continue
 
     # write to json file    
     with open(data_file, "w", encoding="utf-8") as json_file:
-        json.dumps(
+        json.dump(
             stories, json_file, ensure_ascii=False, indent=4
         )
 
@@ -58,6 +52,7 @@ def main():
     
 
 def get_all_story_urls(base_url):
+    """Scrape all feature story URLs across paginated results."""
     all_story_urls= []
 
     try:
@@ -114,37 +109,45 @@ def get_all_story_urls(base_url):
 
 
 def get_story_content(url):
-        try:
-            r = requests.get(url, timeout=10)
-            r.raise_for_status()
-            
-            soup = BeautifulSoup(r.text, 'html.parser')
-            
-            # Find the main content of the story itself.
-            article = soup.find("article", "news full clearfix")
+    """Extract title, date, location, and text from a single story."""
 
-            if article:
-                # We get all the article title, date and time, article body
-                article_title= article.find("span").get_text()
-                article_date_time= article.find("time").get("datetime")
-                article_date= article.find("time").get_text()
-                # Get text
-                article_body= article.find("div", "field field--name-body field--type-text-with-summary field--label-hidden field--item")
-                article_location= article_body.get_text("strong").rsplit(" –", maxsplit=1)[0]
-                article_text_s= article_body.get_text("strong", strip=True).rsplit(" –", maxsplit=1)[1].replace("strong", "")
-                article_text_p= article_body.get_text("p",strip=True).rsplit(" –", maxsplit=1)[1].replace("p", "")                
-                print(f"Fetching story from URL: {url}")
-                return url, article_title, article_date_time, article_date, article_location, article_text_s, article_text_p
-            else:
-                print(f"Warning: Could not find article content for {url}")
-                return None
-           
-        except requests.exceptions.RequestException as e:
-            print(f"Error getting content from {url}: {e}")
+    try:
+        r = requests.get(url, timeout=10)
+        r.raise_for_status()
+        
+        soup = BeautifulSoup(r.text, 'html.parser')
+        
+        # Find the main content of the story itself.
+        article = soup.find("article", "news full clearfix")
+
+        if article:
+            # We get all the article title, date and time, article body
+            article_title= article.find("span").get_text().strip()
+            article_date_time= article.find("time").get("datetime")
+            article_date= article.find("time").get_text()
+            # Get text
+            article_body= article.find("div", "field field--name-body field--type-text-with-summary field--label-hidden field--item")
+            hyphen_pattern= re.compile(r"[-–—‒–]\W?") # search text for first occurrance of "-" hypen or dash and split
+            article_location= re.split(hyphen_pattern, article_body.get_text("strong", strip=True), maxsplit=1)[0].replace("strong", "")
+            article_text_s= re.split(hyphen_pattern, article_body.get_text("strong", strip=True), maxsplit=1)[1].replace("strong", "") 
+            article_text_p= re.split(hyphen_pattern, article_body.get_text("p", strip=True), maxsplit=1)[1].replace("p", "")
+            print(f"\nFetching story from URL: {url}")
+            return {
+                "url": url,
+                "title":article_title,
+                "date_time": article_date_time,
+                "date":article_date,
+                "location":article_location,
+                "text_s": article_text_s,
+                "text_p":article_text_p,
+            } 
+        else:
+            print(f"Warning: Could not find article content for {url}")
             return None
-
-
-
+        
+    except requests.exceptions.RequestException as e:
+        print(f"Error getting content from {url}: {e}")
+        return None
 
 
 if __name__=="__main__":
