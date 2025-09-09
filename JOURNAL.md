@@ -41,8 +41,6 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ### **Goals for the Week:**
 * Develop robust web scraping script for HTML content.
-* Develop robust PDF text extraction script.
-* Implement initial data cleaning functions.
 
 ### **Progress Made:**
 * Research data sources element to understand data extraction strategy
@@ -72,17 +70,14 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ### **Goals for the Week:**
 * Develop robust web scraping script for HTML content.
-* Develop robust PDF text extraction script.
-* Implement initial data cleaning functions.
 
 ### **Progress Made:**
-* Research data sources element to understand data extraction strategy
-* Write web scraping script to scrape WHO Africa features and stories from HTML
-* Write web scraping script to scrape WHO Africa PDF documents
+* Was able to complete the html scraping script and save as json file.
+
 
 ### **Challenges Encountered & Solutions:**
-* coding for only one day in a week make the whole process slow
-* got stuck in extracting data from html because of other important events and tasks.
+* Writing script was still slow, need to improve my code speed and style
+* still struggle with reading and understanding documentations
 
 ### **Libraries/Tools Used & Rationale:**
 * **Request**
@@ -92,10 +87,10 @@ This journal documents the progress, challenges, decisions, and learning points 
 * **Pathlib**
 
 ### **Next Steps:**
-* complete the html article extraction scrapt as by the comming week
+* Start PDF extraction script
 
 ### **Lessons Learned:**
-* Scheduling a day for coding is not a good way to go, need to make out more time for the project.
+* Scheduling a day for coding is not a good way to go, still a challenge, will improve.
 
 ---
 *(Continue adding new weekly entries above this line)*
