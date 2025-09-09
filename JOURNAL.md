@@ -37,7 +37,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ---
 
-## **Week 2 (July 16, 2025 - ...)**
+## **Week 8 (Aug 2, 2025 - ...)**
 
 ### **Goals for the Week:**
 * Develop robust web scraping script for HTML content.
@@ -51,7 +51,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ### **Challenges Encountered & Solutions:**
 * coding for only one day in a week make the whole process slow
-* 
+* got stuck in extracting data from html because of other important events and tasks.
 
 ### **Libraries/Tools Used & Rationale:**
 * **Request**
@@ -61,11 +61,41 @@ This journal documents the progress, challenges, decisions, and learning points 
 * **Pathlib**
 
 ### **Next Steps:**
-* [What's next]
+* complete the html article extraction scrapt as by the comming week
 
 ### **Lessons Learned:**
-* [Key takeaways]
+* Scheduling a day for coding is not a good way to go, need to make out more time for the project.
 
 ---
 
+## **Week 9 (Aug 9, 2025 - ...)**
+
+### **Goals for the Week:**
+* Develop robust web scraping script for HTML content.
+* Develop robust PDF text extraction script.
+* Implement initial data cleaning functions.
+
+### **Progress Made:**
+* Research data sources element to understand data extraction strategy
+* Write web scraping script to scrape WHO Africa features and stories from HTML
+* Write web scraping script to scrape WHO Africa PDF documents
+
+### **Challenges Encountered & Solutions:**
+* coding for only one day in a week make the whole process slow
+* got stuck in extracting data from html because of other important events and tasks.
+
+### **Libraries/Tools Used & Rationale:**
+* **Request**
+* **Beautifulsoup**
+* **JSON**
+* **CSV**
+* **Pathlib**
+
+### **Next Steps:**
+* complete the html article extraction scrapt as by the comming week
+
+### **Lessons Learned:**
+* Scheduling a day for coding is not a good way to go, need to make out more time for the project.
+
+---
 *(Continue adding new weekly entries above this line)*
