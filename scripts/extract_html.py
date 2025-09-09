@@ -120,6 +120,10 @@ def get_story_content(url):
         # Find the main content of the story itself.
         article = soup.find("article", "news full clearfix")
 
+        # If the original structure is not found, try the alternative
+        if not article:
+            article = soup.find("article", class_="news is-promoted full clearfix")
+
         if article:
             # We get all the article title, date and time, article body
             article_title= article.find("span").get_text().strip()
