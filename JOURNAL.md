@@ -28,7 +28,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 * **Git & GitHub:** For version control, tracking changes, and enabling future collaboration. GitHub provides a remote backup and project visibility.
 
 ### **Next Steps:**
-*  Research and sort data sources (WHO AFRO, Africa CDC, National MoH documents on Infectious Diseases and NCDs).
+* Research and sort data sources (WHO AFRO, Africa CDC, National MoH documents on Infectious Diseases and NCDs).
 * Begin drafting Python scripts for web scraping (HTML) and PDF text extraction.
 
 ### **Lessons Learned:**
@@ -37,7 +37,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ---
 
-## **Week 2 (July 16, 2025 - July 22, 2025)**
+## **Week 2 (July 16, 2025 - ...)**
 
 ### **Goals for the Week:**
 * Develop robust web scraping script for HTML content.
@@ -46,12 +46,19 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ### **Progress Made:**
 * Research data sources element to understand data extraction strategy
+* Write web scraping script to scrape WHO Africa features and stories from HTML
+* Write web scraping script to scrape WHO Africa PDF documents
 
 ### **Challenges Encountered & Solutions:**
-* [Your challenges here]
+* coding for only one day in a week make the whole process slow
+* 
 
 ### **Libraries/Tools Used & Rationale:**
-* [Libraries/Tools used and why]
+* **Request**
+* **Beautifulsoup**
+* **JSON**
+* **CSV**
+* **Pathlib**
 
 ### **Next Steps:**
 * [What's next]
