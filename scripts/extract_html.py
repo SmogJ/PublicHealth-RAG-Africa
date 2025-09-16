@@ -7,7 +7,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 
-def extract_text_from_html(output_dir):
+def extract_text_from_html():
     base_url= "https://www.afro.who.int/news/feature_stories"
     story_urls= get_all_story_urls(base_url)
     
@@ -22,7 +22,7 @@ def extract_text_from_html(output_dir):
 
     # Define the data folder
     # Make sure the directory exists
-    data = Path(output_dir)
+    data = Path("../data")
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
@@ -33,7 +33,7 @@ def extract_text_from_html(output_dir):
     stories= []
 
     # Extract content from each story URL
-    for url in story_urls:
+    for url in story_urls[:10]:
         try:
             # print(get_story_content(url))
             story = get_story_content(url)           
