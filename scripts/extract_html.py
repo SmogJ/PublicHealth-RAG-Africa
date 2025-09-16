@@ -7,7 +7,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 
-def main():
+def extract_text_from_html():
     base_url= "https://www.afro.who.int/news/feature_stories"
     story_urls= get_all_story_urls(base_url)
     
@@ -155,4 +155,4 @@ def get_story_content(url):
 
 
 if __name__=="__main__":
-    main()
+    extract_text_from_html()
