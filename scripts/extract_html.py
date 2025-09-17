@@ -7,22 +7,29 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 
-def extract_text_from_html(output_dir):
+def extract_text_from_html():
     base_url= "https://www.afro.who.int/news/feature_stories"
-    story_urls= get_all_story_urls(base_url)
-    
+    page_urls= get_page_urls(base_url)
 
-    # Check if any URLs were found
+    # Check if any page URLs were found
+    if not page_urls:
+        print("No story URLs were found. Exiting.")
+    else:
+        # Print the number of found URLs for verification
+        print(f"Found {len(page_urls)} news and story URLs.")
+
+    story_urls= get_all_content_urls(page_urls)
+
+     # Check if any page URLs were found
     if not story_urls:
         print("No story URLs were found. Exiting.")
     else:
         # Print the number of found URLs for verification
         print(f"Found {len(story_urls)} news and story URLs.")
 
-
     # Define the data folder
     # Make sure the directory exists
-    data = Path(output_dir)
+    data = Path("data")
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
@@ -33,7 +40,7 @@ def extract_text_from_html(output_dir):
     stories= []
 
     # Extract content from each story URL
-    for url in story_urls:
+    for url in story_urls[:10]:
         try:
             # print(get_story_content(url))
             story = get_story_content(url)           
@@ -51,10 +58,9 @@ def extract_text_from_html(output_dir):
     print(f"Saved {len(stories)} stories to {data_file.resolve()}")
     
 
-def get_all_story_urls(base_url):
-    """Scrape all feature story URLs across paginated results."""
-    all_story_urls= []
-
+def get_page_urls(base_url):
+    """Scrape URLs across paginated results."""
+    page_urls= []
     try:
         # send a get request to url
         r= requests.get(base_url, timeout=10)
@@ -82,9 +88,16 @@ def get_all_story_urls(base_url):
 
     for num in range(0, last_num_str + 1):
         page_url = f"{base_url}?page={num}"
-        print(f"Fetching story links from {page_url}")
+        page_urls.append(page_url)
+        print(f"Fetching page links from {page_url}")
+    return page_urls
 
-        try:
+
+def get_all_content_urls(page_urls):
+    """Scrape all feature story URLs across paginated results."""
+    all_story_urls=[]
+    try:
+        for page_url in page_urls:
             # get news/stories from  URLS from Highligth page
             content_page= requests.get(page_url, timeout= 10)
             content_page.raise_for_status()
@@ -99,12 +112,13 @@ def get_all_story_urls(base_url):
                 a_tag= h3.find("a")
                 relative_url= a_tag.get("href")
                 full_url= "https://www.afro.who.int" + relative_url.strip()
+                print(f"Fetching story links from {full_url}")
                 all_story_urls.append(full_url)
-                
-        except requests.exceptions.RequestException as e:
-            print(f"Error fetching page {page_url}: {e}")
-            continue # Continue to the next page even if one fails
-    
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching page {page_url}: {e}")
+        # continue # Continue to the next page even if one fails
+
     return all_story_urls
 
 
