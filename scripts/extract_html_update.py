@@ -1,14 +1,40 @@
+import sys
 import os
 import json
 from pathlib import Path
+from extract_html import get_all_content_urls, get_story_content, get_all_content_urls
 
 
 # check if the most recent article is an update
-def main():
-    print(get_last_article())
+def chcek_for_update():
+    """Check for and Scrape the most recent story on the index page"""
+    # Define the data folder
+    # Make sure the directory exists
+    data = Path("data")
+    data.mkdir(parents=True, exist_ok=True)
+
+    # Define the file path
+    data_file = data / "who_africa_features_stories.json"
+    data_file.touch(exist_ok=True)
+
+    last_article_in_database= get_last_article()
+    recent_story= get_update()
+
+    if last_article_in_database != recent_story:
+        recent_article= get_all_content_urls(recent_story["url"])
+        # write to json file    
+        with open(data_file, "w", encoding="utf-8") as json_file:
+            json.dump(
+                recent_article, json_file, ensure_ascii=False, indent=4
+            )
+    else:
+        sys.exit("UP TO DATE!!!!!")
+        
+    
 
 # get the date of the last scraped article
 def get_last_article():
+    """Get the last article metadata from the database"""
     # get article directory
     articles_dir= Path("data")
     if articles_dir.is_dir():
@@ -17,9 +43,13 @@ def get_last_article():
             with open(articles_file, "r", encoding="utf-8") as f:
                 articles_json= json.load(f)
                 article_url= articles_json[0]["url"]
-                article_url= articles_json[0]["title"]
+                article_title= articles_json[0]["title"]
                 article_date_time= articles_json[0]["date_time"]
-                return article_url, article_url, article_date_time 
+                return {
+                    "url":article_url, 
+                    "title":article_title, 
+                    "date_time": article_date_time
+                    }
         else:
             print(f"File not found: {articles_file}")
             return None
@@ -30,8 +60,16 @@ def get_last_article():
 
 # get the data from the url of the lastest html article
 def get_update():
-    ...
+    """Get the most recent article metadata on the index page"""
+    index_page= ["https://www.afro.who.int/news/feature_stories?page=0"]
+    contents_of_index= get_all_content_urls(index_page)
+    get_lastest_article= get_story_content(contents_of_index[0])
+    return {
+        "url":get_lastest_article["url"],
+        "title": get_lastest_article["title"],
+        "date_time": get_lastest_article["date_time"]
+        }
 
 
 if __name__=="__main__":
-    main()
+    chcek_for_update()
