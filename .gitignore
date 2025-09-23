@@ -4,3 +4,5 @@ Scripts
 Lib
 pyvenv.cfg
 extract_html.txt
+scripts/extract_html.txt
+scripts/__pycache__/extract_html.cpython-313.pyc
