@@ -73,6 +73,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ### **Progress Made:**
 * Was able to complete the html scraping script and save as json file.
+* was able to start the extract_pdf script.
 
 
 ### **Challenges Encountered & Solutions:**
@@ -87,7 +88,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 * **Pathlib**
 
 ### **Next Steps:**
-* Start PDF extraction script
+* finish PDF extraction script
 
 ### **Lessons Learned:**
 * Scheduling a day for coding is not a good way to go, still a challenge, will improve.
