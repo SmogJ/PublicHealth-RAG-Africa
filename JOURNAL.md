@@ -93,4 +93,33 @@ This journal documents the progress, challenges, decisions, and learning points 
 * Scheduling a day for coding is not a good way to go, still a challenge, will improve.
 
 ---
+
+## **Week 10 (Sep 2, 2025)**
+
+### **Goals for the Week:**
+* Develop robust web scraping script for HTML content.
+
+### **Progress Made:**
+* Started script to check for update on the WHO Afirca index page
+
+
+### **Challenges Encountered & Solutions:**
+* I had other engagment, didn't code for a like three weeks
+
+### **Libraries/Tools Used & Rationale:**
+* **Request**
+* **Beautifulsoup**
+* **JSON**
+* **CSV**
+* **Pathlib**
+* **SYS**
+
+### **Next Steps:**
+* Start PDF extraction script
+
+### **Lessons Learned:**
+* Gradually getting comfortable reading documentations.
+* Need to be more consistent with my journaling.
+
+---
 *(Continue adding new weekly entries above this line)*
