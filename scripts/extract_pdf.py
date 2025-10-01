@@ -31,7 +31,7 @@ def get_pdf(pub_url):
 
     # download links
     pdf_links= [link for url in pdf_page_urls  for link in get_pdf_page_content(url)[2]]
-    pdf_name= [link for url in pdf_page_urls  for link i]
+    pdf_name= [link for url in pdf_page_urls  for link in get_pdf_page_content(url)[3]]
     # Page metadata
     pdf_metadata= []
 
@@ -42,7 +42,8 @@ def get_pdf(pub_url):
                 {
                     "title": get_pdf_page_content(page)[0], 
                     "summary": get_pdf_page_content(page)[1], 
-                    "urls": get_pdf_page_content(page)[2]
+                    "urls": get_pdf_page_content(page)[2],
+                    "pdf_name": get_all_content_urls(page)[3]
                     }
                     )
             print(f"Getting content from {page}")
@@ -58,7 +59,7 @@ def get_pdf(pub_url):
 
     # get content from pdf file
     # for link in pdf_links:
-    print(download_extract_pdf_file_content(pdf_links[0]))
+    print(download_extract_pdf_file_content(pdf_links[0], pdf_name[0]))
 
     # save in json file
     with open(data_file, "w", encoding="utf-8") as jsonfile:
@@ -88,7 +89,7 @@ def get_pdf_page_content(url):
             else:
                 pdf_desc = pdf_content.find("p").get_text()
             pdf_items= [a.get("href") for a in pdf_content.select("span.file-link > a")] # get the pdf file download links
-            pdf_name= pdf_content.select("span.file-link > a").get_text()
+            pdf_name= [a.get_text() for a in pdf_content.select("span.file-link > a")]
 
             return pdf_title, pdf_desc, pdf_items, pdf_name
 
