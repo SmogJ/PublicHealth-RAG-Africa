@@ -29,15 +29,11 @@ def get_pdf(pub_url):
     pdf_page_urls= get_all_content_urls(pages[:1])
     print(f"Total pdf page URLs: {len(pdf_page_urls)}")
 
-    # print(get_pdf_page_content(pdf_page_urls[1]))
-
     # download links
     pdf_links= [link for url in pdf_page_urls  for link in get_pdf_page_content(url)[2]]
-
-
+    pdf_name= [link for url in pdf_page_urls  for link i]
     # Page metadata
     pdf_metadata= []
-
 
     # get content of pdf page contents
     for page in pdf_page_urls:
@@ -53,9 +49,16 @@ def get_pdf(pub_url):
         except requests.exceptions.RequestException as e:
             print(f"Error getting content from {pdf_page_urls}: {e}")
             return None
-        
-    print(f"Total download links {len(pdf_links)}")
-    print(pdf_metadata)     
+    
+    if not pdf_links:
+        print(f"PDF links not found. Exiting!!!") 
+    else:   
+        print(f"Total download links {len(pdf_links)}")
+    print(pdf_metadata)
+
+    # get content from pdf file
+    # for link in pdf_links:
+    print(download_extract_pdf_file_content(pdf_links[0]))
 
     # save in json file
     with open(data_file, "w", encoding="utf-8") as jsonfile:
@@ -85,13 +88,28 @@ def get_pdf_page_content(url):
             else:
                 pdf_desc = pdf_content.find("p").get_text()
             pdf_items= [a.get("href") for a in pdf_content.select("span.file-link > a")] # get the pdf file download links
+            pdf_name= pdf_content.select("span.file-link > a").get_text()
 
-            return pdf_title, pdf_desc, pdf_items
+            return pdf_title, pdf_desc, pdf_items, pdf_name
 
     except requests.exceptions.RequestException as e:
         print(f"Error getting content from {url}: {e}")
         return None
 
+
+def download_extract_pdf_file_content(url, name):
+    """Download pdf file"""
+    response = requests.get(url)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Save the PDF file locally
+        with open(f"{name}.pdf", "wb") as file:
+            return  file.write(response.content)
+        print("PDF downloaded successfully!")
+    else:
+        print(f"Failed to download PDF. Status code: {response.status_code}")
+    
 
 
 if __name__=="__main__":
