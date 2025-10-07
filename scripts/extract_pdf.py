@@ -1,9 +1,7 @@
-import sys
-import re
 import json
 import requests
 from pathlib import Path
-from bs4 import BeautifulSoup, SoupStrainer
+from bs4 import BeautifulSoup
 from extract_html import get_page_urls, get_all_content_urls
 
 
@@ -20,7 +18,6 @@ def get_pdf(pub_url):
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
-
     data_html_pub = Path(data, "htnl_publication")
     data_html_pub.mkdir(exist_ok=True)
     data_file = data_html_pub / "who_africa_publications.json"
@@ -34,7 +31,9 @@ def get_pdf(pub_url):
 
     # download links
     pdf_links= [link for url in pdf_page_urls  for link in get_pdf_page_content(url)[2]]
-    pdf_names= [get_pdf_page_content(url)[0] for url in pdf_page_urls]
+    # pdf_names= [get_pdf_page_content(url)[0] for url in pdf_page_urls]
+    pdf_names= [link.split("/")[7] for url in pdf_page_urls  for link in get_pdf_page_content(url)[2]]
+
 
     # Page metadata
     pdf_metadata= []
@@ -64,11 +63,17 @@ def get_pdf(pub_url):
     with open(data_file, "w", encoding="utf-8") as jsonfile:
         json.dump(pdf_metadata, jsonfile, ensure_ascii=False, indent=4 )
 
-    # get content from pdf file
-    for link in pdf_links[:10]:
-        for name in pdf_names[:10]:
-            print(download_extract_pdf_file_content(link, name))
-
+    # checking if the name and links have the same count
+    if len(pdf_links) == len(pdf_names):
+        print(f"Number of PDF links --- {len(pdf_links)}")
+        # print(pdf_links)
+        print(f"Number of PDF Names --- {len(pdf_names)}")
+        # print(pdf_names)
+        # get content from pdf file
+        for link, name in zip(pdf_links[:10], pdf_names[:10]):
+            # for name in pdf_names[:10]:
+            print({download_extract_pdf_file_content(link, name)})
+            print(f"Downloding PDF file: {name}")
 
 def get_pdf_page_content(url):
     """Get html metadata"""    
@@ -112,7 +117,7 @@ def download_extract_pdf_file_content(url, name):
     # Define the file path
     data_pdf= Path(data, "pdf_publication")
     data_pdf.mkdir(exist_ok=True)
-    data_file = data_pdf / f"{name.replace(" ", "_")}.pdf"
+    data_file = data_pdf / f"{name}"
     data_file.touch(exist_ok=True)
 
     response = requests.get(url)
