@@ -31,7 +31,7 @@ def get_pdf(pub_url):
     pages= get_page_urls(pub_url)
     print(f"Total Pages: {len(pages)}")
 
-    pdf_page_urls= get_all_content_urls(pages[:1])
+    pdf_page_urls= get_all_content_urls(pages)
     print(f"Total pdf page URLs: {len(pdf_page_urls)}")
 
     
@@ -89,7 +89,7 @@ def get_pdf(pub_url):
     if len(pdf_links) == len(pdf_names):
         print(f"\nStarting download of {len(pdf_links)} PDF files...")
         
-        for link, name in zip(pdf_links[:10], pdf_names[:10]):
+        for link, name in zip(pdf_links[:10], pdf_names):
             download_extract_pdf_file_content(link, name)
             time.sleep(1) # Add a slight delay for downloads
     else:
