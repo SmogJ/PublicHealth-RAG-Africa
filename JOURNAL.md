@@ -92,6 +92,34 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ### **Lessons Learned:**
 * Scheduling a day for coding is not a good way to go, still a challenge, will improve.
+---
 
+## **Week 17 (Sep 30, 2025 )**
+
+### **Goals for the Week:**
+* Develop robust web scraping script for PDF content.
+
+### **Progress Made:**
+* Was able to scrape the pdf files for the WHO publication website to a database.
+* using the html scraping script made it faster and easier to write. 
+
+
+### **Challenges Encountered & Solutions:**
+* Writing scripts is still pretty much slow as I'm only able to work once in a week for about 4 to 6 hours.
+* studing documentation is becoming easier, but I'm challenged a bit in coverting knowledge to code.
+
+### **Libraries/Tools Used & Rationale:**
+* **Request**
+* **Beautifulsoup**
+* **JSON**
+* **from extract_html [html scraping script]**
+* **Pathlib**
+
+### **Next Steps:**
+* scrape data from pdf file.
+* finish PDF scraping script.
+
+### **Lessons Learned:**
+* Modularizing code make them reusable in other code.
 ---
 *(Continue adding new weekly entries above this line)*
