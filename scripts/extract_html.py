@@ -26,13 +26,19 @@ def extract_text_from_html():
     else:
         # Print the number of found URLs for verification
         print(f"Found {len(story_urls)} news and story URLs.")
-
+  
+    # --- Setup Directories ---
     # Define the data folder
     # Make sure the directory exists
+    project_root = Path(__file__).parent.parent
+    data = project_root / "data"
     data = Path("data")
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
+    data_html_pub = Path(data, "html_publication")
+    data_html_pub.mkdir(exist_ok=True)
+
     data_file = data / "who_africa_features_stories.json"
     data_file.touch(exist_ok=True)
     

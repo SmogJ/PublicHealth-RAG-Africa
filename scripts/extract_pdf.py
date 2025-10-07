@@ -1,4 +1,5 @@
 import json
+import time
 import requests
 from pathlib import Path
 from bs4 import BeautifulSoup
@@ -12,68 +13,88 @@ pub_url= "https://www.afro.who.int/publications"
 
 def get_pdf(pub_url):
     """Get content from html webpage and download pdf file"""
+
+    # --- Setup Directories ---
     # Define the data folder
     # Make sure the directory exists
-    data = Path("../data")
+    project_root = Path(__file__).parent.parent
+    data = project_root / "data"
     data.mkdir(parents=True, exist_ok=True)
 
-    # Define the file path
-    data_html_pub = Path(data, "htnl_publication")
+    data_html_pub = Path(data, "html_publication")
     data_html_pub.mkdir(exist_ok=True)
-    data_file = data_html_pub / "who_africa_publications.json"
-    data_html_pub.touch(exist_ok=True)
 
+    data_file = data_html_pub / "who_africa_publications.json"
+    # data_file.touch(exist_ok=True)
+
+    # --- Get all the Pages and Content URLs ---
     pages= get_page_urls(pub_url)
     print(f"Total Pages: {len(pages)}")
 
     pdf_page_urls= get_all_content_urls(pages[:1])
     print(f"Total pdf page URLs: {len(pdf_page_urls)}")
 
-    # download links
-    pdf_links= [link for url in pdf_page_urls  for link in get_pdf_page_content(url)[2]]
-    # pdf_names= [get_pdf_page_content(url)[0] for url in pdf_page_urls]
-    pdf_names= [link.split("/")[7] for url in pdf_page_urls  for link in get_pdf_page_content(url)[2]]
+    
+    # --- Process Content URLs (OPTIMIZED LOOP) ---
+    pdf_links = []
+    pdf_names = []
+    pdf_metadata = []
 
-
-    # Page metadata
-    pdf_metadata= []
-
-    # get content of pdf page contents
-    for page in pdf_page_urls:
+    for page_url in pdf_page_urls:
         try: 
+            # CALL THE FUNCTION ONLY ONCE
+            content_tuple = get_pdf_page_content(page_url)
+            
+            if content_tuple is None:
+                continue # Skip if content could not be retrieved
+            
+            title, summary, links = content_tuple
+
+            # 1. Build Metadata
             pdf_metadata.append(
                 {
-                    "title": get_pdf_page_content(page)[0], 
-                    "summary": get_pdf_page_content(page)[1], 
-                    "urls": get_pdf_page_content(page)[2]
-                    }
-                    )
-            print(f"Getting content from {page}")
-        except requests.exceptions.RequestException as e:
-            print(f"Error getting content from {pdf_page_urls}: {e}")
-            return None
-    
-    if not pdf_links:
-        print(f"PDF links not found. Exiting!!!") 
-    else:   
-        print(f"Total download links {len(pdf_links)}")
-    print(pdf_metadata)
-    
-    # save in json file
-    with open(data_file, "w", encoding="utf-8") as jsonfile:
-        json.dump(pdf_metadata, jsonfile, ensure_ascii=False, indent=4 )
+                    "title": title, 
+                    "summary": summary, 
+                    "urls": links,
+                    "source_url": page_url # Added for better tracking
+                }
+            )
+            
+            # 2. Collect Links and Names
+            for link in links:
+                pdf_links.append(link)
+                # Extract the file name from the URL path (assuming a consistent structure)
+                # Use a cleaner split/pop method
+                file_name = link.split("/")[-1]
+                pdf_names.append(file_name)
+            
+            print(f"Successfully processed: {title}")
+            time.sleep(0.5) # Be polite!
 
-    # checking if the name and links have the same count
+        except requests.exceptions.RequestException as e:
+            print(f"Error getting content from {page_url}: {e}")
+            continue
+        except Exception as e:
+             # Catch other errors, like index out of range if get_pdf_page_content returned partial data
+            print(f"An unexpected error occurred while processing {page_url}: {e}")
+            continue
+    
+    # --- Save Metadata to JSON ---
+    print(f"\nTotal PDF links collected: {len(pdf_links)}")
+    with open(data_file, "w", encoding="utf-8") as jsonfile:
+        json.dump(pdf_metadata, jsonfile, ensure_ascii=False, indent=4)
+    print(f"Metadata saved to {data_file.resolve()}")
+
+    # --- Download PDFs ---
     if len(pdf_links) == len(pdf_names):
-        print(f"Number of PDF links --- {len(pdf_links)}")
-        # print(pdf_links)
-        print(f"Number of PDF Names --- {len(pdf_names)}")
-        # print(pdf_names)
-        # get content from pdf file
+        print(f"\nStarting download of {len(pdf_links)} PDF files...")
+        
         for link, name in zip(pdf_links[:10], pdf_names[:10]):
-            # for name in pdf_names[:10]:
-            print({download_extract_pdf_file_content(link, name)})
-            print(f"Downloding PDF file: {name}")
+            download_extract_pdf_file_content(link, name)
+            time.sleep(1) # Add a slight delay for downloads
+    else:
+        print("Warning: Link count mismatch. Skipping downloads.")
+
 
 def get_pdf_page_content(url):
     """Get html metadata"""    
@@ -114,22 +135,30 @@ def download_extract_pdf_file_content(url, name):
     data = Path("../data")
     data.mkdir(parents=True, exist_ok=True)
 
-    # Define the file path
-    data_pdf= Path(data, "pdf_publication")
+    # --- Setup Directories ---
+    project_root = Path(__file__).parent.parent
+    data = project_root / "data"
+    data_pdf = data / "pdf_publication"
     data_pdf.mkdir(exist_ok=True)
-    data_file = data_pdf / f"{name}"
-    data_file.touch(exist_ok=True)
+    data_file = data_pdf / name
 
-    response = requests.get(url)
-
-    # Check if the request was successful
-    if response.status_code == 200:
+    # --- Download Logic ---
+    try:
+        response = requests.get(url, stream=True, timeout=30) # Streaming on for large files stream=True for large files
+        response.raise_for_status() # Check for bad status codes
+        
         # Save the PDF file locally
         with open(data_file, "wb") as file:
-            return  file.write(response.content)
-        print("PDF downloaded successfully!")
-    else:
-        print(f"Failed to download PDF. Status code: {response.status_code}")
+            for chunk in response.iter_content(chunk_size=8192):
+                file.write(chunk)
+                
+        print(f"SUCCESS: Downloaded '{name}'")
+        # Returning True can be useful for logging success
+        return True 
+
+    except requests.exceptions.RequestException as e:
+        print(f"FAILED: Error downloading {name} from {url}: {e}")
+        return False
     
 
 
