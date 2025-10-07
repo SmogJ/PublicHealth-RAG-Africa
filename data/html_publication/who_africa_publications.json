@@ -4,61 +4,70 @@
         "summary": null,
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-10/BOLETIM%20CO%CC%81LERA%20271.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/countries/angola/publication/boletim-de-colera-2025-no-271"
     },
     {
         "title": "Boletim de Colera 2025 Nº 270",
         "summary": null,
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-10/BOLETIM%20CO%CC%81LERA%20270.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/countries/angola/publication/boletim-de-colera-2025-no-270"
     },
     {
         "title": "Boletim de Colera 2025 Nº 269",
         "summary": null,
-        "urls": []
+        "urls": [],
+        "source_url": "https://www.afro.who.int/countries/angola/publication/boletim-de-colera-2025-no-269"
     },
     {
         "title": "Boletim de Colera 2025 Nº 268",
         "summary": null,
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-10/BOLETIM%20CO%CC%81LERA%20268.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/countries/angola/publication/boletim-de-colera-2025-no-268"
     },
     {
         "title": "Boletim de Colera 2025 Nº 267",
         "summary": null,
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-10/BOLETIM%20CO%CC%81LERA%20267.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/countries/angola/publication/boletim-de-colera-2025-no-267"
     },
     {
         "title": "Boletim de Colera 2025 Nº 266",
         "summary": null,
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-10/BOLETIM%20CO%CC%81LERA%20266.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/countries/angola/publication/boletim-de-colera-2025-no-266"
     },
     {
         "title": "Regional Strategic Preparedness and Response Plan for Ebola Virus Disease Outbreak in the Democratic Republic of Congo, Version 01, September 2025",
         "summary": "On 4 September 2025, the Ministry of Health of the Democratic Republic of Congo declared an outbreak of Ebola Virus Disease in Kasai Province. To support the government-led response, WHO and partners have launched a strategic plan to rapidly contain the outbreak and mitigate its impact on affected communities. The plan outlines response priorities aligned with the five pillars of the WHO Health Emergency Preparedness and Response Framework: collaborative surveillance, community protection, safe and scalable care, emergency coordination, and access to countermeasures. It also provides a platform to strengthen preparedness capacities and build long-term resilience in the health system, particularly in areas such as water and sanitation, laboratory capacity, and human resources.",
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-09/Regional_SPRP_EVD_29%20September%202025_final.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/publications/regional-strategic-preparedness-and-response-plan-ebola-virus-disease-outbreak"
     },
     {
         "title": "Policy Brief: Advancing Self-care in Uganda's Health System",
         "summary": null,
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-09/Advancing%20self%20care%20in%20Uganda%27s%20Health%20System...pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/countries/uganda/publication/policy-brief-advancing-self-care-ugandas-health-system"
     },
     {
         "title": "Country Cooperation Strategy 2024/28",
         "summary": null,
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-09/CCSCaboVerde-eng.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/countries/cabo-verde/publication/country-cooperation-strategy-2024-28"
     },
     {
         "title": "AIRA Infodemic Trends Report 1-15 September 2025",
@@ -66,20 +75,23 @@
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-09/Infodemic%20Insights%20report%201-15%20september%2C%202025-%20170.pdf",
             "https://www.afro.who.int/sites/default/files/2025-09/Rapport%20sur%20les%20informations%20lie%CC%81es%20a%CC%80%20l%E2%80%99infode%CC%81mie%20du%201er%20au%2015%20septembre%202025%20-%20No.%20170.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/countries/democratic-republic-of-congo/publication/aira-infodemic-trends-report-1-15-september-2025"
     },
     {
         "title": "Polio factsheets",
         "summary": "Download this compilation of factsheets compiling key milestones regarding polio eradication in the WHO African Region. While wild poliovirus transmission has been stopped, and the region is on track to end all active variant type 1 outbreaks by December 2024, variant type 2 outbreaks remain a major challenge. Sustaining political commitment is crucial. Governments are managing competing priorities, unrest and political changes. Effective response also depends on strong coordination across countries and the Global Polio Eradication Initiative to sustain engagement and reduce outbreak response delays that are threatening the path to eradication.",
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-09/2025%20Polio%20Factsheet%20-%20ENG.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/publications/polio-factsheets"
     },
     {
         "title": "WHO Kenya Newsletter | August 2025",
         "summary": "Read online: here.",
         "urls": [
             "https://www.afro.who.int/sites/default/files/2025-09/WHO%20Kenya%20Newsletter%20August%202025.pdf"
-        ]
+        ],
+        "source_url": "https://www.afro.who.int/countries/kenya/publication/who-kenya-newsletter-august-2025"
     }
 ]
