@@ -20,8 +20,11 @@ def get_pdf(pub_url):
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
-    data_file = data / "who_africa_publications.json"
-    data_file.touch(exist_ok=True)
+
+    data_html_pub = Path(data, "htnl_publication")
+    data_html_pub.mkdir(exist_ok=True)
+    data_file = data_html_pub / "who_africa_publications.json"
+    data_html_pub.touch(exist_ok=True)
 
     pages= get_page_urls(pub_url)
     print(f"Total Pages: {len(pages)}")
@@ -31,7 +34,8 @@ def get_pdf(pub_url):
 
     # download links
     pdf_links= [link for url in pdf_page_urls  for link in get_pdf_page_content(url)[2]]
-    pdf_name= [link for url in pdf_page_urls  for link in get_pdf_page_content(url)[3]]
+    pdf_names= [get_pdf_page_content(url)[0] for url in pdf_page_urls]
+
     # Page metadata
     pdf_metadata= []
 
@@ -42,8 +46,7 @@ def get_pdf(pub_url):
                 {
                     "title": get_pdf_page_content(page)[0], 
                     "summary": get_pdf_page_content(page)[1], 
-                    "urls": get_pdf_page_content(page)[2],
-                    "pdf_name": get_all_content_urls(page)[3]
+                    "urls": get_pdf_page_content(page)[2]
                     }
                     )
             print(f"Getting content from {page}")
@@ -56,14 +59,15 @@ def get_pdf(pub_url):
     else:   
         print(f"Total download links {len(pdf_links)}")
     print(pdf_metadata)
-
-    # get content from pdf file
-    # for link in pdf_links:
-    print(download_extract_pdf_file_content(pdf_links[0], pdf_name[0]))
-
+    
     # save in json file
     with open(data_file, "w", encoding="utf-8") as jsonfile:
         json.dump(pdf_metadata, jsonfile, ensure_ascii=False, indent=4 )
+
+    # get content from pdf file
+    for link in pdf_links[:10]:
+        for name in pdf_names[:10]:
+            print(download_extract_pdf_file_content(link, name))
 
 
 def get_pdf_page_content(url):
@@ -91,7 +95,7 @@ def get_pdf_page_content(url):
             pdf_items= [a.get("href") for a in pdf_content.select("span.file-link > a")] # get the pdf file download links
             pdf_name= [a.get_text() for a in pdf_content.select("span.file-link > a")]
 
-            return pdf_title, pdf_desc, pdf_items, pdf_name
+            return  pdf_title, pdf_desc, pdf_items,
 
     except requests.exceptions.RequestException as e:
         print(f"Error getting content from {url}: {e}")
@@ -100,12 +104,23 @@ def get_pdf_page_content(url):
 
 def download_extract_pdf_file_content(url, name):
     """Download pdf file"""
+    # Define the data folder
+    # Make sure the directory exists
+    data = Path("../data")
+    data.mkdir(parents=True, exist_ok=True)
+
+    # Define the file path
+    data_pdf= Path(data, "pdf_publication")
+    data_pdf.mkdir(exist_ok=True)
+    data_file = data_pdf / f"{name.replace(" ", "_")}.pdf"
+    data_file.touch(exist_ok=True)
+
     response = requests.get(url)
 
     # Check if the request was successful
     if response.status_code == 200:
         # Save the PDF file locally
-        with open(f"{name}.pdf", "wb") as file:
+        with open(data_file, "wb") as file:
             return  file.write(response.content)
         print("PDF downloaded successfully!")
     else:
