@@ -94,7 +94,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 * Scheduling a day for coding is not a good way to go, still a challenge, will improve.
 ---
 
-## **Week 17 (Sep 30, 2025 )**
+## **Week 10 (Sep 30, 2025 )**
 
 ### **Goals for the Week:**
 * Develop robust web scraping script for PDF content.
@@ -123,32 +123,29 @@ This journal documents the progress, challenges, decisions, and learning points 
 * Modularizing code make them reusable in other code.
 ---
 
-## **Week 10 (Sep 2, 2025)**
+## **Week 11 (Oct 07, 2025 )**
 
 ### **Goals for the Week:**
-* Develop robust web scraping script for HTML content.
+* Develop robust web scraping script for PDF content.
 
 ### **Progress Made:**
-* Started script to check for update on the WHO Afirca index page
+* change the renamed the extract_pdf to get_pdf.
+* merged all branches to the main branch and deleted them.
+* started a new brach extact_pdf 
 
 
 ### **Challenges Encountered & Solutions:**
-* I had other engagment, didn't code for a like three weeks
+* I'm not new to git and Github but using it this extensively fir CI/CD and version control has been a bit of a learning, I have been using command other than commit and status, just saying. 
 
 ### **Libraries/Tools Used & Rationale:**
-* **Request**
-* **Beautifulsoup**
-* **JSON**
-* **CSV**
-* **Pathlib**
-* **SYS**
+* **git**
+* **Github**
 
 ### **Next Steps:**
-* Start PDF extraction script
+* extract data from pdf files.
+* finish PDF scraping script.
 
 ### **Lessons Learned:**
-* Gradually getting comfortable reading documentations.
-* Need to be more consistent with my journaling.
-
+* using git / Github and learning CI/CD best practices.
 ---
 *(Continue adding new weekly entries above this line)*
