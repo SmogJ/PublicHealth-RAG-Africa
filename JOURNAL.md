@@ -148,4 +148,35 @@ This journal documents the progress, challenges, decisions, and learning points 
 ### **Lessons Learned:**
 * using git / Github and learning CI/CD best practices.
 ---
+
+## **Week 12 (Oct 14, 2025 )**
+
+### **Goals for the Week:**
+* Develop robust web scraping script for PDF content.
+
+### **Progress Made:**
+* Work on the extraction of text and other data form pdf files
+* Also found out that the metedata gotten from the etract_html script is not complete, need to go back to it
+* The extract_html_update only find the update but those not extract the metadata and text.
+* Its also the same with the get_pdf script, some relevant data is not being extracted, I need to go back to it.
+
+
+### **Challenges Encountered & Solutions:**
+* Decide which pdf extrator library is best, had to work with a combination of libraries.
+
+### **Libraries/Tools Used & Rationale:**
+* **PYMUPDF**
+* **PYPDF2**
+* **Pathlib**
+
+### **Next Steps:**
+* extract data from pdf files.
+* finish PDF scraping script.
+* go back to get_pdf, extract_html, and extract_html_update to add scrape for missing metadata
+
+### **Lessons Learned:**
+* You might sometime missing certian information when scrape date.
+* Reviews and second options are important, always clear doubts.
+* Ask for help even if it is from AI, a little goes along way.
+---
 *(Continue adding new weekly entries above this line)*
