@@ -18,7 +18,7 @@ def extract_text_from_html():
         # Print the number of found URLs for verification
         print(f"Found {len(page_urls)} news and story URLs.")
 
-    story_urls= get_all_content_urls(page_urls)
+    story_urls= get_all_content_urls(page_urls[:1])
 
      # Check if any page URLs were found
     if not story_urls:
@@ -32,36 +32,37 @@ def extract_text_from_html():
     # Make sure the directory exists
     project_root = Path(__file__).parent.parent
     data = project_root / "data"
-    data = Path("data")
+    # data = Path("../data")
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
     data_html_pub = Path(data, "html_publication")
     data_html_pub.mkdir(exist_ok=True)
 
-    data_file = data / "who_africa_features_stories.json"
+    data_file = data_html_pub / "who_africa_features_stories.json"
     data_file.touch(exist_ok=True)
     
     # collect stories
-    stories= []
+    # stories= []
 
     # Extract content from each story URL
     for url in story_urls[:10]:
         try:
             # print(get_story_content(url))
-            story = get_story_content(url)           
-            stories.append(story)
+            story = get_story_content(url)  
+            print(story)         
+            # stories.append(story)
         
         except TypeError:
             continue
 
     # write to json file    
-    with open(data_file, "w", encoding="utf-8") as json_file:
-        json.dump(
-            stories, json_file, ensure_ascii=False, indent=4
-        )
+    # with open(data_file, "w", encoding="utf-8") as json_file:
+    #     json.dump(
+    #         stories, json_file, ensure_ascii=False, indent=4
+    #     )
 
-    print(f"Saved {len(stories)} stories to {data_file.resolve()}")
+    # print(f"Saved {len(stories)} stories to {data_file.resolve()}")
     
 
 def get_page_urls(base_url):
@@ -132,13 +133,36 @@ def get_story_content(url):
     """Extract title, date, location, and text from a single story."""
 
     try:
-        r = requests.get(url, timeout=10)
+        r = requests.get(url, timeout=15)
         r.raise_for_status()
         
         soup = BeautifulSoup(r.text, 'html.parser')
         
         # Find the main content of the story itself.
-        article = soup.find("article", "news full clearfix")
+        article = soup.find("article", class_=["news", "full clearfix"])
+
+        # Find infomation
+        info_body_1= article.css.select_one("div.col-md-3 > div.field.field--name-field-news-contacts.field--type-entity-reference.field--label-hidden.field--items > div:nth-child(1)")
+        info_body_2= article.css.select_one("div.col-md-3 > div.field.field--name-field-news-contacts.field--type-entity-reference.field--label-hidden.field--items > div:nth-child(2)") 
+        article_head = soup.select_one("#main-content > div.header-top > div > div > div > div > ol")
+
+        if info_body_1:
+            info_1= info_body_1.find("p").get_text(separator="\n", strip=True).split("\n")
+            publishers_name= info_body_1.find("span").get_text(strip=True)
+            article_publisher= (info_1[1] if len(info_1) > 1 else info_1[0])
+            email= info_body_1.find("p").find("span", "t")
+            publishers_email= (f"{email.get_text(strip= True).split("[")[0].strip("(")}@who.int" if email else None)
+        
+        if info_body_2:
+            ...
+        
+        if article_head:
+            country = soup.select_one("li:nth-child(3) > a").get_text("href", strip=True)
+            article_country= (country if country != "News" else None)
+            article_type= article_head.select_one("li:nth-child(4) > a") 
+            article_type= (article_type.get_text("href", strip=True) if article_type else None)
+
+
 
         # If the original structure is not found, try the alternative
         if not article:
@@ -146,24 +170,32 @@ def get_story_content(url):
 
         if article:
             # We get all the article title, date and time, article body
-            article_title= article.find("span").get_text().strip()
-            article_date_time= article.find("time").get("datetime")
-            article_date= article.find("time").get_text()
+            # Get article information
+            # article_title= article.find("span").get_text().strip()
+            # article_date_time= article.find("time").get("datetime")
+            # article_date= article.find("time").get_text()
+
             # Get text
-            article_body= article.find("div", "field field--name-body field--type-text-with-summary field--label-hidden field--item")
-            hyphen_pattern= re.compile(r"[-–—‒–]\W?") # search text for first occurrance of "-" hypen or dash and split
-            article_location= re.split(hyphen_pattern, article_body.get_text("strong", strip=True), maxsplit=1)[0].replace("strong", "")
-            article_text_s= re.split(hyphen_pattern, article_body.get_text("strong", strip=True), maxsplit=1)[1].replace("strong", "") 
-            article_text_p= re.split(hyphen_pattern, article_body.get_text("p", strip=True), maxsplit=1)[1].replace("p", "")
+            # article_body= article.find("div", "field field--name-body field--type-text-with-summary field--label-hidden field--item")
+            # hyphen_pattern= re.compile(r"[-–—‒–]\W?") # search text for first occurrance of "-" hypen or dash and split
+            # article_location= re.split(hyphen_pattern, article_body.get_text("strong", strip=True), maxsplit=1)[0].replace("strong", "")
+            # article_text_s= re.split(hyphen_pattern, article_body.get_text("strong", strip=True), maxsplit=1)[1].replace("strong", "") 
+            # article_text_p= re.split(hyphen_pattern, article_body.get_text("p", strip=True), maxsplit=1)[1].replace("p", "")
             print(f"\nFetching story from URL: {url}")
             return {
                 "url": url,
-                "title":article_title,
-                "date_time": article_date_time,
-                "date":article_date,
-                "location":article_location,
-                "text_s": article_text_s,
-                "text_p":article_text_p,
+                # "title":article_title,
+                # "date_time": article_date_time,
+                "publishers_name": publishers_name,
+                "publisher":article_publisher,
+                "publishers_email": publishers_email,
+                "doc_type":article_type,
+                "country":article_country,
+                # "additional_inforamtion":article_info,
+                # "date":article_date,
+                # "location":article_location,
+                # "text_s": article_text_s,
+                # "text_p":article_text_p,
             } 
         else:
             print(f"Warning: Could not find article content for {url}")
