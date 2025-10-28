@@ -131,7 +131,7 @@ def get_all_content_urls(page_urls):
 def get_story_content(url):
     """Extract title, date, location, and text from a single story."""
 
-    # Initialize all variables to safe defaults (CRITICAL FIX)
+    # Initialize all variables to safe defaults (CRITICAL FIX) "Code Evalution using Gemini"
     article_title = None
     article_date_time = None
     article_date = None
