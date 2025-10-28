@@ -18,7 +18,7 @@ def extract_text_from_html():
         # Print the number of found URLs for verification
         print(f"Found {len(page_urls)} news and story URLs.")
 
-    story_urls= get_all_content_urls(page_urls)
+    story_urls= get_all_content_urls(page_urls[:1])
 
      # Check if any page URLs were found
     if not story_urls:
@@ -32,14 +32,14 @@ def extract_text_from_html():
     # Make sure the directory exists
     project_root = Path(__file__).parent.parent
     data = project_root / "data"
-    data = Path("data")
+    # data = Path("../data")
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
     data_html_pub = Path(data, "html_publication")
     data_html_pub.mkdir(exist_ok=True)
 
-    data_file = data / "who_africa_features_stories.json"
+    data_file = data_html_pub / "who_africa_features_stories.json"
     data_file.touch(exist_ok=True)
     
     # collect stories
@@ -48,8 +48,8 @@ def extract_text_from_html():
     # Extract content from each story URL
     for url in story_urls[:10]:
         try:
-            # print(get_story_content(url))
-            story = get_story_content(url)           
+            story = get_story_content(url)  
+            print(story)         
             stories.append(story)
         
         except TypeError:
@@ -131,24 +131,54 @@ def get_all_content_urls(page_urls):
 def get_story_content(url):
     """Extract title, date, location, and text from a single story."""
 
+    # Initialize all variables to safe defaults (CRITICAL FIX) "Code Evalution using Gemini"
+    article_title = None
+    article_date_time = None
+    article_date = None
+    article_country = None
+    article_type = None
+    publisher_info_1 = None
+    publisher_info_2 = None
+    article_location = None
+    article_text_s = None
+    article_text_p = None
+
     try:
-        r = requests.get(url, timeout=10)
+        r = requests.get(url, timeout=15)
         r.raise_for_status()
         
         soup = BeautifulSoup(r.text, 'html.parser')
         
         # Find the main content of the story itself.
-        article = soup.find("article", "news full clearfix")
+        article = soup.find("article", class_=["news full clearfix", "news is-promoted full clearfix"])
 
-        # If the original structure is not found, try the alternative
-        if not article:
-            article = soup.find("article", class_="news is-promoted full clearfix")
+        # Find infomation of Publishers
+        info_body_1= article.css.select_one("div.col-md-3 > div.field.field--name-field-news-contacts.field--type-entity-reference.field--label-hidden.field--items > div:nth-child(1)")
+        info_body_2= article.css.select_one("div.col-md-3 > div.field.field--name-field-news-contacts.field--type-entity-reference.field--label-hidden.field--items > div:nth-child(2)") 
+        article_head = soup.select_one("#main-content > div.header-top > div > div > div > div > ol")
+
+        # Getting the Publishers of the article details (eg. Name, Role, Organisation, location, Phone number, WhatsApp number, email)
+        if info_body_1:
+            publisher_info_1= info_body_1.get_text(separator="\n", strip=True).split("\n")
+        
+        if info_body_2:
+            publisher_info_2= info_body_2.get_text(separator="\n", strip=True).split("\n")
+
+        
+        if article_head:
+            country = article_head.select_one("li:nth-child(3) > a").get_text("href", strip=True)
+            article_country= (country if country != "News" else None)
+            article_type= article_head.select_one("li:nth-child(4) > a") 
+            article_type= (article_type.get_text("href", strip=True) if article_type else None)
+
 
         if article:
             # We get all the article title, date and time, article body
+            # Get article information
             article_title= article.find("span").get_text().strip()
             article_date_time= article.find("time").get("datetime")
             article_date= article.find("time").get_text()
+
             # Get text
             article_body= article.find("div", "field field--name-body field--type-text-with-summary field--label-hidden field--item")
             hyphen_pattern= re.compile(r"[-–—‒–]\W?") # search text for first occurrance of "-" hypen or dash and split
@@ -160,6 +190,10 @@ def get_story_content(url):
                 "url": url,
                 "title":article_title,
                 "date_time": article_date_time,
+                "publisher_info_1": publisher_info_1,
+                "publisher_info_2": publisher_info_2,
+                "doc_type":article_type,
+                "country":article_country,
                 "date":article_date,
                 "location":article_location,
                 "text_s": article_text_s,
