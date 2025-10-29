@@ -18,7 +18,7 @@ def extract_text_from_html():
         # Print the number of found URLs for verification
         print(f"Found {len(page_urls)} news and story URLs.")
 
-    story_urls= get_all_content_urls(page_urls[:1])
+    story_urls= get_all_content_urls(page_urls)
 
      # Check if any page URLs were found
     if not story_urls:
@@ -46,7 +46,7 @@ def extract_text_from_html():
     stories= []
 
     # Extract content from each story URL
-    for url in story_urls[:10]:
+    for url in story_urls:
         try:
             story = get_story_content(url)  
             print(story)         
