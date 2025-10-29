@@ -8,14 +8,22 @@ from extract_html import get_all_content_urls, get_story_content, get_all_conten
 # check if the most recent article is an update
 def chcek_for_update():
     """Check for and Scrape the most recent story on the index page"""
+    
+    # --- Setup Directories ---
     # Define the data folder
     # Make sure the directory exists
-    data = Path("data")
+    project_root = Path(__file__).parent.parent
+    data = project_root / "data"
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
-    data_file = data / "who_africa_features_stories.json"
+    data_html_pub = Path(data, "html_publication")
+    data_html_pub.mkdir(exist_ok=True)
+
+    # Define the file path
+    data_file = data_html_pub / "who_africa_features_stories.json"
     data_file.touch(exist_ok=True)
+
 
     last_article_in_database= get_last_article()
     recent_story= get_update()
