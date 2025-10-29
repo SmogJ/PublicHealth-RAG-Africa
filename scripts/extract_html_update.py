@@ -30,7 +30,7 @@ def chcek_for_update():
 
     #  Comparing the recent data to existing data in the database
     if last_article_in_database != recent_story:
-        print(f"New Article Detected. URL: {recent_story["url"]}")
+        print(f"New Article Detected. URL: {recent_story['url']}")
     else:
         sys.exit("DATABASE IS UP TO DATE!!!!!")
 
@@ -56,6 +56,7 @@ def chcek_for_update():
         json.dump(
             existing_articles, json_file, ensure_ascii=False, indent=4
         )
+    print(f"   ---   New Data Added: TITLE: {recent_story['title']}   ---   ")
         
     
 
