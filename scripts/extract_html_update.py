@@ -8,27 +8,55 @@ from extract_html import get_all_content_urls, get_story_content, get_all_conten
 # check if the most recent article is an update
 def chcek_for_update():
     """Check for and Scrape the most recent story on the index page"""
+    
+    # --- Setup Directories ---
     # Define the data folder
     # Make sure the directory exists
-    data = Path("data")
+    project_root = Path(__file__).parent.parent
+    data = project_root / "data"
     data.mkdir(parents=True, exist_ok=True)
 
     # Define the file path
-    data_file = data / "who_africa_features_stories.json"
+    data_html_pub = Path(data, "html_publication")
+    data_html_pub.mkdir(exist_ok=True)
+
+    # Define the file path
+    data_file = data_html_pub / "who_africa_features_stories.json"
     data_file.touch(exist_ok=True)
+
 
     last_article_in_database= get_last_article()
     recent_story= get_update()
 
+    #  Comparing the recent data to existing data in the database
     if last_article_in_database != recent_story:
-        recent_article= get_all_content_urls(recent_story["url"])
-        # write to json file    
-        with open(data_file, "w", encoding="utf-8") as json_file:
-            json.dump(
-                recent_article, json_file, ensure_ascii=False, indent=4
-            )
+        print(f"New Article Detected. URL: {recent_story['url']}")
     else:
-        sys.exit("UP TO DATE!!!!!")
+        sys.exit("DATABASE IS UP TO DATE!!!!!")
+
+    #  Get recent data from most recent article
+    recent_article= get_story_content(recent_story["url"])
+
+    # Load Existing Data "Help from Gemini"
+    existing_articles = []
+    if data_file.exists() and data_file.stat().st_size > 0:
+        try:
+            with open(data_file, "r", encoding="utf-8") as json_file:
+                existing_articles = json.load(json_file)
+            print(f"Loaded {len(existing_articles)} existing articles from the database.")
+        except json.JSONDecodeError:
+            print("Warning: Existing JSON file is corrupted or empty. Starting with only the new article.")
+            
+    # Prepend the new article
+    # Insert the new article at the beginning of the list
+    existing_articles.insert(0, recent_article)
+
+    # write to json file    
+    with open(data_file, "w", encoding="utf-8") as json_file:
+        json.dump(
+            existing_articles, json_file, ensure_ascii=False, indent=4
+        )
+    print(f"   ---   New Data Added: TITLE: {recent_story['title']}   ---   ")
         
     
 
