@@ -118,10 +118,10 @@ def get_pdf_page_content(url):
                 pdf_desc= None
             else:
                 pdf_desc = pdf_content.find("p").get_text()
-            pdf_items= [a.get("href") for a in pdf_content.select("span.file-link > a")] # get the pdf file download links
+            pdf_url= [a.get("href") for a in pdf_content.select("span.file-link > a")] # get the pdf file download links
             pdf_name= [a.get_text() for a in pdf_content.select("span.file-link > a")]
 
-            return  pdf_title, pdf_desc, pdf_items,
+            return  pdf_title, pdf_desc, pdf_url,
 
     except requests.exceptions.RequestException as e:
         print(f"Error getting content from {url}: {e}")
