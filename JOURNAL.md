@@ -175,22 +175,21 @@ This journal documents the progress, challenges, decisions, and learning points 
 ## **Week 14 (Oct 28, 2025 )**
 
 ### **Goals for the Week:**
-* Develop robust web scraping script for PDF content.
+* Develop web scraping script for PDF content.
 
 ### **Progress Made:**
-*  Almost done with code to get the publisher's information.
-
+*  Add code to get metadata from storage to compare with recent article on web page.
 
 ### **Challenges Encountered & Solutions:**
-*  First thme encountering html code that is loaded from Javascript making it difficult to get the data.
+*  
 
 ### **Libraries/Tools Used & Rationale:**
-* beuatifulsoup css select and select-one 
+* Called and used the functions in extract_html script.
 
 ### **Next Steps:**
-* finish up with script to get metadata from the html page.
+* review the get_pdf script.
 
 ### **Lessons Learned:**
-* Javascript code can be used to load html or part of html for a webpage 
+* Using code from a script I created.
 ---
 *(Continue adding new weekly entries above this line)*
