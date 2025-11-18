@@ -192,4 +192,25 @@ This journal documents the progress, challenges, decisions, and learning points 
 ### **Lessons Learned:**
 * Using code from a script I created.
 ---
+
+## **Week 15 (Nov 18, 2025 )**
+
+### **Goals for the Week:**
+* 
+
+### **Progress Made:**
+* 
+
+### **Challenges Encountered & Solutions:**
+*  
+
+### **Libraries/Tools Used & Rationale:**
+* 
+
+### **Next Steps:**
+* 
+
+### **Lessons Learned:**
+* 
+---
 *(Continue adding new weekly entries above this line)*
