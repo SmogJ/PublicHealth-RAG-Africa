@@ -156,7 +156,7 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ### **Progress Made:**
 * Work on the extraction of text and other data form pdf files
-* Also found out that the metedata gotten from the etract_html script is not complete, need to go back to it
+* Also found out that the metedata gotten from the extract_html script is not complete, need to go back to it
 * The extract_html_update only find the update but those not extract the metadata and text.
 * Its also the same with the get_pdf script, some relevant data is not being extracted, I need to go back to it.
 
@@ -178,5 +178,30 @@ This journal documents the progress, challenges, decisions, and learning points 
 * You might sometime missing certian information when scrape date.
 * Reviews and second options are important, always clear doubts.
 * Ask for help even if it is from AI, a little goes along way.
+---
+
+## **Week 15 (Nov 18, 2025 )**
+
+### **Goals for the Week:**
+* Develop robust web scraping script for PDF content.
+
+### **Progress Made:**
+* Include code for the creation of a new directory and json file for metadata and text
+* Written a function that gets the PDF file.
+* Written function that scrapes text and metadata from pdf.
+
+
+### **Challenges Encountered & Solutions:**
+* Decide which pdf extrator library is best, had to work with a combination of libraries.
+
+### **Libraries/Tools Used & Rationale:**
+* **PYPDF2**
+* **Pathlib**
+
+### **Next Steps:**
+* 
+
+### **Lessons Learned:**
+* 
 ---
 *(Continue adding new weekly entries above this line)*
