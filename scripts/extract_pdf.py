@@ -14,6 +14,7 @@ pdf_data.mkdir(exist_ok=True)
 #    --- PDF DATA JSON File --- 
 pdf_json= pdf_data / "pdf_publication.json"
 
+
 def extract_pdf():
 
     #   --- get the PDF file name as a list and read the file one at time ---
@@ -57,7 +58,10 @@ def extract_data(reader):
     for num in range(num_pages):
         print(f"Extract Text from Page {num}")
         pdf_text.append(pdf_pages[num].extract_text())
+
+ 
     
+
     return {
         "pdf_author": pdf_author, 
         "pdf_title": pdf_title, 
