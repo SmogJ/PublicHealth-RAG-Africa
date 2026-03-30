@@ -149,12 +149,17 @@ This journal documents the progress, challenges, decisions, and learning points 
 * using git / Github and learning CI/CD best practices.
 ---
 
+<<<<<<< HEAD
 ## **Week 13 (Oct 21, 2025 )**
+=======
+## **Week 12 (Oct 14, 2025 )**
+>>>>>>> extract_pdf
 
 ### **Goals for the Week:**
 * Develop robust web scraping script for PDF content.
 
 ### **Progress Made:**
+<<<<<<< HEAD
 *  Almost done with code to get the publisher's information.
 
 
@@ -191,11 +196,37 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ### **Lessons Learned:**
 * Using code from a script I created.
+=======
+* Work on the extraction of text and other data form pdf files
+* Also found out that the metedata gotten from the extract_html script is not complete, need to go back to it
+* The extract_html_update only find the update but those not extract the metadata and text.
+* Its also the same with the get_pdf script, some relevant data is not being extracted, I need to go back to it.
+
+
+### **Challenges Encountered & Solutions:**
+* Decide which pdf extrator library is best, had to work with a combination of libraries.
+
+### **Libraries/Tools Used & Rationale:**
+* **PYMUPDF**
+* **PYPDF2**
+* **Pathlib**
+
+### **Next Steps:**
+* extract data from pdf files.
+* finish PDF scraping script.
+* go back to get_pdf, extract_html, and extract_html_update to add scrape for missing metadata
+
+### **Lessons Learned:**
+* You might sometime missing certian information when scrape date.
+* Reviews and second options are important, always clear doubts.
+* Ask for help even if it is from AI, a little goes along way.
+>>>>>>> extract_pdf
 ---
 
 ## **Week 15 (Nov 18, 2025 )**
 
 ### **Goals for the Week:**
+<<<<<<< HEAD
 * 
 
 ### **Progress Made:**
@@ -206,6 +237,22 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 ### **Libraries/Tools Used & Rationale:**
 * 
+=======
+* Develop robust web scraping script for PDF content.
+
+### **Progress Made:**
+* Include code for the creation of a new directory and json file for metadata and text
+* Written a function that gets the PDF file.
+* Written function that scrapes text and metadata from pdf.
+
+
+### **Challenges Encountered & Solutions:**
+* Decide which pdf extrator library is best, had to work with a combination of libraries.
+
+### **Libraries/Tools Used & Rationale:**
+* **PYPDF2**
+* **Pathlib**
+>>>>>>> extract_pdf
 
 ### **Next Steps:**
 * 
