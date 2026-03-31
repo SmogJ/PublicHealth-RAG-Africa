@@ -149,54 +149,12 @@ This journal documents the progress, challenges, decisions, and learning points 
 * using git / Github and learning CI/CD best practices.
 ---
 
-<<<<<<< HEAD
-## **Week 13 (Oct 21, 2025 )**
-=======
 ## **Week 12 (Oct 14, 2025 )**
->>>>>>> extract_pdf
 
 ### **Goals for the Week:**
 * Develop robust web scraping script for PDF content.
 
 ### **Progress Made:**
-<<<<<<< HEAD
-*  Almost done with code to get the publisher's information.
-
-
-### **Challenges Encountered & Solutions:**
-*  First thme encountering html code that is loaded from Javascript making it difficult to get the data.
-
-### **Libraries/Tools Used & Rationale:**
-* beuatifulsoup css select and select-one 
-
-### **Next Steps:**
-* finish up with script to get metadata from the html page.
-
-### **Lessons Learned:**
-* Javascript code can be used to load html or part of html for a webpage 
----
-
-
-## **Week 14 (Oct 28, 2025 )**
-
-### **Goals for the Week:**
-* Develop web scraping script for PDF content.
-
-### **Progress Made:**
-*  Add code to get metadata from storage to compare with recent article on web page.
-
-### **Challenges Encountered & Solutions:**
-*  
-
-### **Libraries/Tools Used & Rationale:**
-* Called and used the functions in extract_html script.
-
-### **Next Steps:**
-* review the get_pdf script.
-
-### **Lessons Learned:**
-* Using code from a script I created.
-=======
 * Work on the extraction of text and other data form pdf files
 * Also found out that the metedata gotten from the extract_html script is not complete, need to go back to it
 * The extract_html_update only find the update but those not extract the metadata and text.
@@ -220,24 +178,11 @@ This journal documents the progress, challenges, decisions, and learning points 
 * You might sometime missing certian information when scrape date.
 * Reviews and second options are important, always clear doubts.
 * Ask for help even if it is from AI, a little goes along way.
->>>>>>> extract_pdf
 ---
 
 ## **Week 15 (Nov 18, 2025 )**
 
 ### **Goals for the Week:**
-<<<<<<< HEAD
-* 
-
-### **Progress Made:**
-* 
-
-### **Challenges Encountered & Solutions:**
-*  
-
-### **Libraries/Tools Used & Rationale:**
-* 
-=======
 * Develop robust web scraping script for PDF content.
 
 ### **Progress Made:**
@@ -252,12 +197,99 @@ This journal documents the progress, challenges, decisions, and learning points 
 ### **Libraries/Tools Used & Rationale:**
 * **PYPDF2**
 * **Pathlib**
->>>>>>> extract_pdf
 
 ### **Next Steps:**
-* 
-
 ### **Lessons Learned:**
-* 
+
 ---
-*(Continue adding new weekly entries above this line)*
+
+
+
+
+## I'm Back
+I have been away from this project for a couple of week now, because I got involve in another project, a Hackathon called Design Thinking Challenge. And Honestly I learnt alot and I want to bring what I learn during the hackathon into this project. So, I will be going back to the start. What will I be doing from the start, well here is what it looks like:
+<p>
+<h1>RAG App for Public Health in Africa Project Plan</h1>
+<h2>PHASE 0: Problem Framing</h2> 
+<ol>0.1 Define key user questions (e.g., malaria treatment guidelines Nigeria) </ol>
+<ol>0.2 Define success criteria (what is a “good answer”?) </ol>
+<ol>0.3 Define risks (misinformation, outdated data) </ol>
+<ol>0.4 Define evaluation dataset (10–20 gold questions manually) </ol>
+
+
+<h2>Phase 1: Architecture & System Design</h2>
+<h5><i>Sprint 1 (Week of Mar 30):</i></h5> 
+<ol>1.1 Design the system architecture diagram (Data flow from WHO/Africa CDC to UI).</ol> 
+<ol>1.2 Set up a professional `.gitignore` and initialize the environment.</ol> 
+<ol>1.3 Refactor the project folder structure (`/src`, `/tests`, `/data`, `/config`).</ol>
+
+
+<h2>Phase 2: Data Acquisition & Preparation (Ingestion)</2>
+<h5><i>Sprint 2 (Week of Apr 06):</i><h5>
+<ol>2.0 Data Model Layer: Define canonical Document Schema</ol>  
+<ol>2.2 Refactor the HTML scraper into a modular class structure.</ol> 
+<ol>2.3 Define Specific Scope & Target Users (Done, Initial: Infectious & NCDs)</ol>
+<ol>2.4 Identify & Prioritize Data Sources (URLs for WHO AFRO, Africa CDC, National MoH, Journals)</ol>
+<ol>2.5 Develop Web Scrapers for HTML Content</ol>
+<h5><i>Sprint 3 (Week of Apr 13):</i></h5>
+<ol>2.6 Refactor the PDF scraper to match the new modular structure.</ol> 
+<ol>2.7  Implement the missing metadata extraction identified in previous work.</ol> 
+<ol>2.8 Implement centralized logging for tracking scraper success/failure.</ol> 
+<ol>2.9 Develop PDF Text Extractors</ol>
+<ol>2.10 Implement Initial Data Cleaning (Remove boilerplate, headers, footers)</ol>
+<ol>2.11 Implement Text Chunking Strategy (Semantic chunking with overlap)</ol>
+<ol>2.12 Store Cleaned & Chunked Data (e.g., in a temporary directory or initial data lake)</ol>
+
+
+<h2>Phase 3: RAG Pipeline Development</h2>
+<h5><i>Sprint 4 (Week of Apr 20):</i></h5>
+<ol>3.1 Define the semantic chunking strategy (e.g., 500-token chunks with 50-token overlap).</ol> 
+<ol>3.2 Set up the Vector Database (e.g., ChromaDB or Qdrant) and run the first ingestion.</ol> 
+<ol>3.3 Select & Integrate Embedding Model (e.g., Sentence Transformers)</ol>
+<ol>3.4 Choose & Set Up Vector Database (e.g., ChromaDB for prototyping)</ol>
+<ol>3.5 Ingest Embeddings into Vector Database</ol>
+<ol>3.6 Develop Retrieval Mechanism (Similarity search)</ol>
+<ol>3.7 Implement Initial Prompt Engineering for LLM</ol>
+<ol>3.8 Select & Integrate LLM (e.g., a suitable open-source model or API)</ol>
+<ol>3.9 Retrieval Strategy Design: Define retrieval strategy</ol> 
+
+
+<h2>Phase 4: Application Development & Quality Assurance</h2>
+<h5><i>Sprint 5 (Week of Apr 27):</i></h5>
+<ol>4.1 Develop the FastAPI backend to handle retrieval and LLM generation.</ol> 
+<ol>4.2 Implement data safety checks (ensuring the LLM only answers from the provided context).</ol> 
+<ol>4.3 Set up secrets management (using `.env` for all keys/endpoints).</ol>  
+<ol>4.4 Choose & Set Up Web Framework (e.g., Streamlit)</ol>
+<ol>4.5 Design & Implement User Interface (Input, Output, Source Display)</ol>
+<ol>4.6 Integrate RAG Pipeline with UI</ol>
+<ol>4.7 Implement Conversational History (Optional, for enhanced UX)</ol>
+<ol>4.8 Safety Layer: Implement safety guardrails</ol> 
+
+
+<h2>Phase 5: Evaluation & Iteration & Safety</hs>
+<h5><i>Sprint 6 (Week of May 04):</i></h5>
+<ol>5.1 Write unit tests for data validation and scraper logic using `pytest`.</ol> 
+<ol>5.2 Configure GitHub Actions for CI/CD (automatically run tests on every push).</ol> 
+<ol>5.3 Define & Implement Evaluation Metrics (Retrieval Accuracy, Generation Quality)</ol>
+<ol>5.4 Conduct Initial Testing & Gather Feedback (Internal Alpha Testing)</ol>
+<ol>5.5 Iterate & Refine Data Cleaning, Chunking, Retrieval, and Prompt Engineering</ol>
+<ol>5.6 Explore Advanced RAG Techniques (Hybrid Search, Re-ranking, etc.)</ol>
+<ol>5.7 Observability Layer: Logs</ol> 
+
+
+<h2>Phase 6: Deployment & Security</h2>
+<h5><i>Sprint 7 (Week of May 11):</i></h5>
+<ol>6.1 Build the Streamlit frontend.</ol> 
+<ol>6.3 Containerize Application (Docker)</ol>
+<ol>6.4 Select Cloud Platform & Services (e.g., GCP, Supabase)</ol>
+<ol>6.3 Implement Data Privacy & Security Measures (Access Control, Encryption)</ol>
+<ol>6.4 Deploy Application</ol>
+<ol>6.5 Set Up Monitoring & Logging</ol>
+<ol>6.6 Plan for Continuous Data Updates & Model Maintenance</ol>
+<ol>6.7 Final end-to-end testing and project retrospective.</ol> 
+<ol>6.8 Schedule scraper (cron job)</ol> 
+<ol>6.9 Incremental updates (only new docs)</ol> 
+<ol>6.10 Re-index embeddings</ol> 
+</p>
+
+
