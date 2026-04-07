@@ -263,6 +263,8 @@ To ensure the system addresses real-world clinical and policy needs, I am **reve
 
 By transforming headers from official documents (e.g., the *WHO Anaemia Fact Sheet*) into natural language queries, I create a bridge between static PDFs and user intent. For example, the sub-heading "Signs and Symptoms" becomes: **"What are the clinical indicators of Anaemia in expectant mothers?"** This ensures the RAG model is tested against the exact structure of the data it will eventually retrieve.
 
+---
+
 ## 6.0 Categorization by Multi-Dimensional Taxonomy
 Simply having questions is not enough; we must understand the **Cognitive Load** and **Retrieval Difficulty** each question imposes on the AI. Following industry standards for LLM evaluation, I have categorized every question across three critical axes:
 
@@ -280,6 +282,33 @@ Simply having questions is not enough; we must understand the **Cognitive Load**
 * **Static:** Knowledge that rarely changes (e.g., "What is a biological vector?").
 * **Dynamic/Real-Time:** Information that becomes dangerous if outdated (e.g., "Current outbreak epicenters in Nigeria").
 
+---
+
+## 8. Governance Principles
+
+* Prioritize patient safety over completeness
+* Prefer refusal over hallucination
+* Enforce strict grounding for high-risk queries
+* Maintain auditability via Gold Dataset
+
+---
+
+## 9. Usage
+
+This specification is used for:
+
+* Prompt design
+* Retrieval strategy design
+* Evaluation pipeline implementation
+* Safety enforcement
+
+---
+
+## 10. Versioning
+
+* Version: 1.0
+* Status: Production-ready baseline
+* Owner: Jeffrey Esedo
 
 ---
 
@@ -300,3 +329,4 @@ Simply having questions is not enough; we must understand the **Cognitive Load**
 - #####  [Building a “Golden Dataset” for AI Evaluation: A Step-by-Step Guide](https://www.getmaxim.ai/articles/building-a-golden-dataset-for-ai-evaluation-a-step-by-step-guide/)
 - #####  [A Survey on Evaluation of Large Language Models](https://arxiv.org/abs/2307.03109)
 - #####  [A Practical Guide for Evaluating LLMs and LLM-Reliant Systems](https://arxiv.org/html/2506.13023v1)
+- #####  the help of CHATGPT
