@@ -24,7 +24,7 @@ UI → API → Retrieval → Generation → DB
 
 ### Pros:
 
-* Simple to build (great for MVP)
+* Simple to build (great for MVP)   
 * Easy debugging
 * Fast iteration
 
@@ -368,26 +368,341 @@ Every step:
 
 ---
 
-# 👉 Next Step
+The next question that came to mind is If I where to make this decisions myself, what tools coukd help in making a system architectural decision?
+A recuring answer was using **Architecture Decision Records**. 
 
-Now we’re ready to design your actual system.
+## What is Architecture Decision Records (ADR)
+According to [8 best practices for creating architecture decision records](https://www.techtarget.com/searchapparchitecture/tip/4-best-practices-for-creating-architecture-decision-records) by **Twain Taylor** 
 
-Say:
+```
+An architecture decision record (ADR) is a document that captures the reasoning behind significant architectural decisions made during a project's lifecycle. 
+```
+The ADR captures and maintains the reasoning, decisions that brought it, and the consequences of thtat decision. They retain inforamtion the product to help inform decision making and continuity for existing and new member of a team to get speed on important information about the product, it also aid in future re-evaluation of architectural decisions.
 
-👉 **“Design the architecture diagram”**
+**So, I as ChatGPT "I would like to know if there are tools to help in making a system architectural decision?"**
 
-And I’ll build you:
+Short answer:
 
-* A **clear visual-style architecture (text diagram)**
-* Fully aligned with:
+> Yes — there are tools, but more importantly, there are **frameworks + workflows** that guide decisions.
+> Tools support them—they don’t replace thinking.
 
-  * your taxonomy
-  * your risk model
-  * your gold dataset
-* With annotations for:
+Let’s break this down clearly so you know **what actually helps vs what just looks fancy**.
 
-  * data flow
-  * safety checks
-  * failure handling
+---
 
-This is where your project becomes *real engineering*.
+# 🧠 1. The Most Important Concept: ADR (Architecture Decision Records)
+
+This is the **#1 industry-standard tool/process** you should adopt.
+
+### What it is:
+
+A structured way to document:
+
+* the problem
+* the options
+* the decision
+* the tradeoffs
+
+👉 Think of it as:
+
+> “Version control for architectural thinking”
+
+### Why it matters:
+
+* Prevents repeated debates
+* Captures *why* decisions were made
+* Makes your system explainable
+
+📌 Without ADRs, teams forget decisions and re-argue them later ([Cavaro][1])
+
+---
+
+## 🔧 Tools for ADRs
+
+### 1. Markdown + Git (Best for you right now)
+
+* Store in `/docs/adrs/`
+* Version-controlled
+* Simple and powerful
+
+Example:
+
+```bash
+/docs/adrs/0001-use-vector-db.md
+```
+
+---
+
+### 2. ADR CLI Tools
+
+* `adr-tools`
+* `dotnet-adr`
+
+👉 Help you generate structured ADR files ([Architectural Decision Records][2])
+
+---
+
+### 3. Dedicated ADR Platforms
+
+* Cavaro (visual + linked to diagrams)
+* ReflectRally
+
+👉 These link decisions directly to architecture diagrams ([Cavaro][1])
+
+---
+
+# 🧠 2. Decision-Making Frameworks (More Important Than Tools)
+
+Tools help you **record decisions**
+Frameworks help you **make decisions**
+
+---
+
+## 🔷 A. ATAM (Architecture Tradeoff Analysis Method)
+
+This is a classic industry framework.
+
+### What it does:
+
+Helps you evaluate:
+
+* performance
+* scalability
+* security
+* tradeoffs
+
+### Example:
+
+You ask:
+
+* Should I use hybrid retrieval or vector-only?
+
+ATAM forces you to evaluate:
+
+* accuracy vs latency
+* cost vs complexity
+
+---
+
+## 🔷 B. Tradeoff Analysis Thinking (You’ll use this daily)
+
+Every architectural decision is:
+
+```text
+Option A vs Option B
+→ Compare pros/cons
+→ Choose based on constraints
+```
+
+Example in your RAG system:
+
+| Decision      | Tradeoff                         |
+| ------------- | -------------------------------- |
+| Vector DB     | Fast but less precise            |
+| Hybrid search | Better accuracy but more complex |
+
+---
+
+## 🔷 C. Constraint-Based Design (VERY IMPORTANT)
+
+Instead of asking:
+
+> “What is best?”
+
+You ask:
+
+> “What fits my constraints?”
+
+Your constraints:
+
+* Healthcare safety
+* Low hallucination
+* Traceability (MUST_CITE)
+
+👉 This will drive most of your decisions.
+
+---
+
+## 🔷 D. Scenario-Based Design (Used in advanced systems)
+
+You simulate:
+
+> “What happens if…”
+
+Example:
+
+* What if retrieval fails?
+* What if no WHO document exists?
+* What if user asks unsafe question?
+
+👉 This directly maps to your **Failure Modes**
+
+---
+
+# 🧩 3. Visual Architecture Tools (For Diagrams)
+
+Now for actual diagram tools:
+
+---
+
+## 🔹 Simple (Best for you now)
+
+### 1. Draw.io (diagrams.net)
+
+* Free
+* Flexible
+* Industry standard
+
+👉 Recommended for your Sprint 1
+
+---
+
+### 2. Excalidraw
+
+* Fast
+* Clean
+* Great for brainstorming
+
+---
+
+## 🔹 Structured Architecture Tools
+
+### 3. Structurizr
+
+* Based on C4 model
+* Links diagrams + code + decisions
+
+👉 Very powerful for scaling systems
+
+---
+
+### 4. Lucidchart / Miro
+
+* Good for collaboration
+* Less technical rigor
+
+---
+
+# 🧠 4. AI-Assisted Decision Tools (Emerging)
+
+These are newer but interesting:
+
+---
+
+## 🔹 Decision Recommender Systems
+
+Example concept (like **Archify**):
+
+* You answer questions
+* System suggests architecture choices
+
+👉 Useful but not yet mainstream ([arXiv][3])
+
+---
+
+## 🔹 LLM-Assisted ADR Generation
+
+You can literally do:
+
+> “Given constraints, generate architecture decision”
+
+👉 LLMs can help draft decisions, but still need human validation ([arXiv][4])
+
+---
+
+# 🧠 5. What You Should ACTUALLY Use (Practical Stack)
+
+For your current stage:
+
+---
+
+## ✅ MUST HAVE
+
+### 1. ADR System (Critical)
+
+* Markdown in `/docs/adrs/`
+* Use template:
+
+```md
+# ADR-001: Use Hybrid Retrieval
+
+## Status
+Accepted
+
+## Context
+Need high accuracy for healthcare queries
+
+## Options
+1. Vector search
+2. Hybrid search
+
+## Decision
+Use hybrid
+
+## Consequences
++ Better accuracy
+- More complexity
+```
+
+---
+
+### 2. Diagram Tool
+
+* Draw.io
+
+---
+
+### 3. Decision Framework (Mental Model)
+
+* Tradeoff analysis
+* Constraint-driven thinking
+
+---
+
+## ⚠️ OPTIONAL (Later)
+
+* Structurizr
+* ADR platforms
+* AI-assisted tools
+
+---
+
+# 🔥 6. The Real Insight (This Changes Everything)
+
+Most people think:
+
+> Architecture = drawing diagrams
+
+Wrong.
+
+👉 Real architecture is:
+
+> **Making and documenting good decisions under constraints**
+
+That’s why:
+
+* ADR = memory
+* Framework = thinking
+* Diagram = communication
+
+---
+
+# 🚀 Final Answer
+
+### Yes, tools exist—but the real stack is:
+
+| Layer             | What to Use            |
+| ----------------- | ---------------------- |
+| Decision thinking | Tradeoff + constraints |
+| Decision tracking | ADRs (Markdown)        |
+| Visualization     | Draw.io                |
+| Advanced          | Structurizr (later)    |
+
+---
+
+
+[1]: https://www.cavaro.io/architecture-decision-record-tool?utm_source=chatgpt.com "Architecture Decision Record Tool | ADR Tool for Engineering Teams | Cavaro"
+[2]: https://adr.github.io/adr-tooling/?utm_source=chatgpt.com "Decision Capturing Tools | Architectural Decision Records"
+[3]: https://arxiv.org/abs/2106.08115?utm_source=chatgpt.com "Archify: A Recommender System of Architectural Design Decisions"
+[4]: https://arxiv.org/abs/2604.03826?utm_source=chatgpt.com "Context Matters: Evaluating Context Strategies for Automated ADR Generation Using LLMs"
+
