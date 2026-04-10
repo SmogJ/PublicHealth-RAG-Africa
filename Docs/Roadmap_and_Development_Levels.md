@@ -249,4 +249,4 @@ Given my goals:
 
 * Version: 1.0
 * Status: Active Development Roadmap
-* Owner: Project Developer
+* Owner: Jeffrey Esedo (Developer)
