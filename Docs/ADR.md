@@ -285,7 +285,16 @@ From Level 1 ADRs, you should understand:
 
 ---
 
-## 7. Final Note
+## 7.  Versioning
+
+
+* Version: 1.0
+* Status: Active Development Roadmap
+* Owner: Jeffrey Esedo (Developer)
+
+---
+
+## Final Note 
 
 ADRs are not static documents.
 They evolve as your system evolves.
@@ -294,5 +303,3 @@ When you upgrade your system:
 
 * Create new ADRs
 * Or mark old ones as "Deprecated"
-
-This is how real engineering teams track system evolution.
