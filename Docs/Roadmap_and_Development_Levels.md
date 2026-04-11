@@ -221,7 +221,7 @@ Introduce dynamic reasoning and tool usage.
 
 ## 4. Stopping Points (Important)
 
-I can stop at any level depending on the goals:
+I can stop at any level depending on my goals:
 
 | Level   | Outcome                                      |
 | ------- | -------------------------------------------- |
@@ -241,7 +241,6 @@ Given my goals:
 * Programming skills
 * Data science skills
 * Software engineering fundamentals
-* Portfolio
 
 ---
 
