@@ -285,7 +285,12 @@ From Level 1 ADRs, you should understand:
 
 ---
 
-## 7.  Versioning
+## 7. Diagram Reference
+See: [level1-architecture](/docs/diagrams/level1-architecture.png)
+
+---
+
+## 8.  Versioning
 
 
 * Version: 1.0
