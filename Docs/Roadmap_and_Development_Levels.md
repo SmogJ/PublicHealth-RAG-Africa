@@ -40,8 +40,11 @@ Understand core RAG concepts and build a simple working system.
 
 ### Architecture
 
-* **Monolithic**
-* Basic pipeline (query → retrieve → generate)
+#### System Architecture
+- Monolithic
+
+#### Processing Architecture
+- Basic pipeline (query → retrieve → generate)
 
 ### Tools
 
