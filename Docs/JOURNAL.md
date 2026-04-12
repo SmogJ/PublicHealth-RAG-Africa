@@ -207,4 +207,82 @@ This journal documents the progress, challenges, decisions, and learning points 
 
 
 ## I'm Back
-I have been away from this project for a couple of week now, because I got involve in another project (MedCore, an EHR SaaS app), which was for a Hackathon called Design Thinking Challenge. And Honestly I learnt alot and I want to bring what I learned during the hackathon into this project. So, I will be going back to the start, not making any changes to the existing code yet, but will do a lot of restructuring and best practices. Afterall, I am still learning and developng my Data Science and Python Programming skills. What will I be doing, well here is what it looks like check it out here: [Project Plan](\PublicHealth-RAG-Africa\Docs\Project_Plan.md)
+### Week 1 (March 30, 2026)
+I have been away from this project for a couple of week now, because I got involve in another project (MedCore, an EHR SaaS app), which was for a Hackathon called Design Thinking Challenge. And Honestly I learnt alot and I want to bring what I learned during the hackathon into this project. So, I will be going back to the start, not making any changes to the existing code yet, but will do a lot of restructuring and best practices. Afterall, I am still learning and developng my Data Science and Python Programming skills. 
+
+My first Task is to review, restructure, and break the project into task and sprints (still with the help of ChatGPT). My goal is to develop my Data Science and Python Programming skills, that hasn't changed, rather I will add more or adding things I missed when starting out the project, most especailly skills around Design Thinking, Software Development. 
+
+Afrer the review and restructuring of the Project Plan here is what it looks like, check it out here: [Project Plan](\PublicHealth-RAG-Africa\Docs\Project_Plan.md)
+
+
+---
+
+## **Week 1 (Mar 30, 2026 )**
+
+### **Goals for the Week:**
+* _PHASE 0: Problem Framing_ 
+* 0.1 Define key user questions (e.g., malaria treatment guidelines Nigeria) 
+* 0.2 Define success criteria (what is a “good answer”?) 
+* 0.3 Define risks (misinformation, outdated data) 
+* 0.4 Define evaluation dataset (10–20 gold questions manually) 
+
+### **Progress Made:**
+* Reviewed and reorganized the project plan
+* Worked on Phase 0: Problem framing (v i.0).
+* Deined user (Clinicians, Researchers, Public) questions
+* Defined Success critera (Expected Answer Type, Trusted Source Requirement, Freshness Requirement, Query Complexity)
+* Defined Risks mitigation critea (Risk Level, Safety Mode, Failure Behavior, Grounding)
+* Defined the Gold Set (10 questions)
+
+
+### **Challenges Encountered & Solutions:**
+* To get the user questions (20 of them) I had to reverse engineering these from:
+    - Questions searched on serch engines like bing and Google seearch.
+    - Websites like the WHO, CDC, UNICEF and their for topics
+    - and some Peer-Review journals.
+* Getting to define the Success, Risk, and Gold Set wasn't much of a challenge after looks of research and help from ChatGPT.
+
+
+### **Libraries/Tools Used & Rationale:**
+* Though this aren't libraries, but they are importatn framworks-guidelines in building LLMs/AI and ensuring their safety in Healthcare, and used to defined:
+    - Query Taxonomy, 
+    - Evaluation schema, 
+    - Risk and safety controls, 
+    - Gold evaluation dataset 
+from the onset, these can be found here [Problem Framing](\PublicHealth-RAG-Africa\Docs\Problem_Framing.md).
+
+### **Next Steps:**
+* 1.1 System Architecture Diagram 
+* 1.1.2 Data ingestion (WHO, NCDC, PDFs)
+* 1.1.2 Preprocessing pipeline
+* 1.1.3 Vector store
+* 1.1.4 Retriever
+* 1.1.5 Generator
+* 1.1.6 Guardrails
+* 1.1.7 API layer
+* 1.1.8 UI
+
+### **Lessons Learned:**
+* 
+---
+
+## **Week 15 (Nov 18, 2025 )**
+
+### **Goals for the Week:**
+* Develop robust web scraping script for PDF content.
+
+### **Progress Made:**
+* Include code for the creation of a new directory and json file for metadata and text
+* Written a function that gets the PDF file.
+* Written function that scrapes text and metadata from pdf.
+
+
+### **Challenges Encountered & Solutions:**
+* Decide which pdf extrator library is best, had to work with a combination of libraries.
+
+### **Libraries/Tools Used & Rationale:**
+* **PYPDF2**
+* **Pathlib**
+
+### **Next Steps:**
+### **Lessons Learned:**

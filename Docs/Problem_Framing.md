@@ -148,7 +148,7 @@ This spec is designed for engineering, evaluation, and governance teams.
 ### 2.2 Success Criteria: Defining the "Gold Standard"**
 A "good answer" in healthcare is not just grammatically correct; it must be **grounded, traceable, and safe.**
 
-#### 2.3 Technical Schemas (The ENUMs)
+### 2.3 Technical Schemas (The ENUMs)
 To build a machine-readable evaluation pipeline, I have standardized the following attributes for every query:
 
 * **1. Expected Answer Type:** `TEXT`, `NUMERIC`, `TABLE`, `CITATION`.
@@ -158,10 +158,10 @@ To build a machine-readable evaluation pipeline, I have standardized the followi
 
 ---
 
-#### 2.4 Risk Mitigation & AI Governance
+### 2.4 Risk Mitigation & AI Governance
 AI in public health must adhere to **Risk-Based Deployment** (aligning with WHO AI Regulation Guidance).
 
-#### 2.5 Safety & Failure Modes
+### 2.5 Safety & Failure Modes
 * **1. Risk Level:** Each question is labeled `LOW`, `MEDIUM`, `HIGH`, or `CRITICAL`.
 * **2. Safety Mode:** 
     * `STRICT`: High-risk clinical questions requiring disclaimers and medical escalation.
@@ -217,7 +217,7 @@ The **Gold Set** is a manually curated dataset of 15+ "perfect" question-answer 
 
 ---
 
-## **GOLD SET**
+## GOLD SET
 
 
 | Question                                         | Persona    | Intent | Risk     | Type       | Source        | Freshness | Safety        | Grounding     | Complexity | Failure Mode      | Gold Answer                                                                                                |
@@ -313,6 +313,8 @@ This specification is used for:
 ---
 
 ## Source:
+- ##### [Regulatory considerations on artificial intelligence for health](https://iris.who.int/items/21da9dd6-f2b7-441f-823d-2f34fb1f39ea)
+- ##### [Ethics and governance of artificial intelligence for health: Guidance on large multi-modal models](https://www.who.int/publications/i/item/9789240084759)
 - #####  [15 Types of Questions (With Definitions and Examples](https://www.indeed.com/career-advice/career-development/types-of-questions)
 - #####  [How do you categorize questions for effective communication?](https://www.linkedin.com/advice/3/how-do-you-categorize-questions-effective-communication-tnorf)
 - #####  [MultiHop-RAG: Benchmarking Retrieval-Augmented Generation for Multi-Hop Queries](https://arxiv.org/abs/2401.15391)
