@@ -252,37 +252,23 @@ Afrer the review and restructuring of the Project Plan here is what it looks lik
 from the onset, these can be found here [Problem Framing](\PublicHealth-RAG-Africa\Docs\Problem_Framing.md).
 
 ### **Next Steps:**
-* 1.1 System Architecture Diagram 
-* 1.1.2 Data ingestion (WHO, NCDC, PDFs)
-* 1.1.2 Preprocessing pipeline
-* 1.1.3 Vector store
-* 1.1.4 Retriever
-* 1.1.5 Generator
-* 1.1.6 Guardrails
-* 1.1.7 API layer
-* 1.1.8 UI
+1.1 Define Canonical Document Schema
+    Unify:
+        * HTML output
+        * PDF output 
+
+1.2 Refactor HTML scraper
+    * Remove fragile selectors
+    * Output → unified schema
+    * Merge text_s + text_p → content 
+
+1.3 Fix PDF extractor (CRITICAL)
+    * Switch to pdfplumber
+    * Extract: clean text, tables
+    * Output → same schema 
 
 ### **Lessons Learned:**
-* 
+* Problem framing is not just about identifying the users and their needs.
+* When it comes to using AI/LLM in healthcare there are important guidelines meant to make sure they are delivered safe, secure, and auditable.
+* Also, there are need to define risk migation stategies, failurea and their fallback, and define a proper ground truth like the Golden Set, that can be used continously used for testing the AI/LLM.
 ---
-
-## **Week 15 (Nov 18, 2025 )**
-
-### **Goals for the Week:**
-* Develop robust web scraping script for PDF content.
-
-### **Progress Made:**
-* Include code for the creation of a new directory and json file for metadata and text
-* Written a function that gets the PDF file.
-* Written function that scrapes text and metadata from pdf.
-
-
-### **Challenges Encountered & Solutions:**
-* Decide which pdf extrator library is best, had to work with a combination of libraries.
-
-### **Libraries/Tools Used & Rationale:**
-* **PYPDF2**
-* **Pathlib**
-
-### **Next Steps:**
-### **Lessons Learned:**
