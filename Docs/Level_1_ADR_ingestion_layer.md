@@ -54,7 +54,7 @@ I will implement a **multi-stage, schema-driven Data Ingestion Architecture** wi
 
 ## Architecture Overview (Level 1)
 
-Diagram can be forn here: [Data Ingestion Architecture Diagram](\PublicHealth-RAG-Africa\Docs\Diagrams\level1-ingestion-architecture.drawio)
+Diagram can be found here: [Data Ingestion Architecture Diagram](\PublicHealth-RAG-Africa\Docs\Diagrams\level1-ingestion-architecture.drawio)
 
 ---
 
