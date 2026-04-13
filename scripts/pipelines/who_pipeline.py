@@ -34,14 +34,10 @@ def main():
     print(f"Last 5 urls: {health_topics['urls'][-5:]}")
 
     # 4. Get Health topic content
+    # Loop through the health topics links and get the content of each topic page
     for url in health_topics["urls"]:
-        r= requests.get(url)
+        topic_content= get_health_topic_content(url)
 
-        status_code= r.status_code
-        if status_code != 200:
-            print(f"Error: Failed to retrieve content for URL: {url} with status code: {status_code}")
-        else:
-            print(f"Successfully retrieved content for URL: {url} with status code: {status_code}")
 
 # =======================================
 # find WHO health topics liinks and types
@@ -62,7 +58,25 @@ def find_health_topics_links(html: str) -> dict:
     }
 
 
+# ===========================================================================
 # Loop through the health topics links and get the content of each topic page
+# ==========================================================================
+def get_health_topic_content(url: str):
+
+    r= requests.get(url) # make a GET request to the topic page URL
+
+    status_code= r.status_code # check if the request was successful
+
+    # 1. Check if the request was successful
+    if status_code != 200:
+        print(f"Error: Failed to retrieve content for URL: {url} with status code: {status_code}")
+    else:
+        print(f"Successfully retrieved content for URL: {url} with status code: {status_code}")
+
+    # 2. Get HTML content of the topic page
+    r.text
+
+
 
 # Extract the title, word_count, type, category, credits and tag
 
