@@ -1,5 +1,6 @@
-from pathlib import Path
 import requests
+import hashlib
+from pathlib import Path
 from bs4 import BeautifulSoup
 
 # ==========================
@@ -35,8 +36,10 @@ def main():
 
     # 4. Get Health topic content
     # Loop through the health topics links and get the content of each topic page
-    for url in health_topics["urls"]:
-        topic_content= get_health_topic_content(url)
+    for title, url in zip(health_topics["titles"], health_topics["urls"]):
+        print(f"Getting html for the {title}, with the url: {url}")
+        html= get_html(url)
+        print(html)
 
 
 # =======================================
@@ -59,11 +62,11 @@ def find_health_topics_links(html: str) -> dict:
 
 
 # ===========================================================================
-# Loop through the health topics links and get the content of each topic page
+# Get the HTML content of each topic page
 # ==========================================================================
-def get_health_topic_content(url: str):
+def get_html(url: str):
 
-    r= requests.get(url) # make a GET request to the topic page URL
+    r= requests.get(url, timeout=10) # make a GET request to the topic page URL
 
     status_code= r.status_code # check if the request was successful
 
@@ -74,7 +77,10 @@ def get_health_topic_content(url: str):
         print(f"Successfully retrieved content for URL: {url} with status code: {status_code}")
 
     # 2. Get HTML content of the topic page
-    r.text
+    soup: BeautifulSoup= BeautifulSoup(r.text, "html.parser")
+
+    return soup
+    
 
 
 
