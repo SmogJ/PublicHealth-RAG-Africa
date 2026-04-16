@@ -3,14 +3,6 @@ import hashlib
 from pathlib import Path
 from bs4 import BeautifulSoup
 
-# ==========================
-# Define HTML data directory
-# ==========================
-project_dir: Path= Path(__file__).resolve().parent.parent.parent # root directory of the project
-html_dir: Path= project_dir / "data" / "raw" / "html"
-html_dir.mkdir(parents=True, exist_ok=True) # create the html data directory if it doesn't exist
-# print(f"Project directory: {html_dir}")
-
 
 # =================================
 # Main function to run the pipeline
@@ -38,8 +30,8 @@ def main():
     # Loop through the health topics links and get the content of each topic page
     for title, url in zip(health_topics["titles"], health_topics["urls"]):
         print(f"Getting html for the {title}, with the url: {url}")
-        html= get_html(url)
-        print(html)
+        # html= get_html(url)
+        # print(html)
 
 
 # =======================================
@@ -59,34 +51,6 @@ def find_health_topics_links(html: str) -> dict:
         "urls": urls,
         "types": types,
     }
-
-
-# ===========================================================================
-# Get the HTML content of each topic page
-# ==========================================================================
-def get_html(url: str):
-
-    r= requests.get(url, timeout=10) # make a GET request to the topic page URL
-
-    status_code= r.status_code # check if the request was successful
-
-    # 1. Check if the request was successful
-    if status_code != 200:
-        print(f"Error: Failed to retrieve content for URL: {url} with status code: {status_code}")
-    else:
-        print(f"Successfully retrieved content for URL: {url} with status code: {status_code}")
-
-    # 2. Get HTML content of the topic page
-    soup: BeautifulSoup= BeautifulSoup(r.text, "html.parser")
-
-    return soup
-    
-
-
-
-# Extract the title, word_count, type, category, credits and tag
-
-# Download/save the content of each topic as html files in the html data directory
 
 
 if __name__ == "__main__":    main()
