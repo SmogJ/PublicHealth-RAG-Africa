@@ -41,7 +41,7 @@ def main():
     # Loop through the health topics links and get the content of each topic page
     for title, url, cat_type in zip(health_topics["titles"], health_topics["urls"], health_topics["types"]):
         print(f"Getting html for the {title}, with the url: {url}")
-        html= save_html(url, title, cat_type)
+        doc_id, file_path = save_html(url, title, cat_type)
         print(f"html for {title} saved successfully")
 
 
@@ -67,7 +67,7 @@ def find_health_topics_links(html: str) -> dict:
 # ===============================================================
 # Save the html content of each topic and Index the topic content
 # ===============================================================
-def save_html(url: str, title: str, cat_type:str | None) -> None:
+def save_html(url: str, title: str, cat_type:str | None) -> tuple[str, Path]:
     # 1. Get page
     r= requests.get(url, timeout=15)
     status_code= r.status_code # check if the request was successful
@@ -90,18 +90,20 @@ def save_html(url: str, title: str, cat_type:str | None) -> None:
         f.write(html)
 
     # 6. SAve Doc index
-    with open(index_file, "w", encoding="utf-8") as f:
-        f.write(
-            json.dumps(
-                {
-                    "doc_id": doc_id,
-                    "url": url,
-                    "title": title,
-                    "type": cat_type,
-                    "file_path": str(file_path)
-                }
-            ) + "\n"
+    with open(index_file, "a", encoding="utf-8") as jsonl_file:
+        json.dump(
+            {
+                "doc_id": doc_id,
+                "url": url,
+                "title": title,
+                "type": cat_type,
+                "file_path": str(file_path)
+            },
+            jsonl_file,
+            ensure_ascii=False,
+            indent=4,
+            separators=(",", ": ")
         )
-
+    return doc_id, file_path
 
 if __name__ == "__main__":    main()
