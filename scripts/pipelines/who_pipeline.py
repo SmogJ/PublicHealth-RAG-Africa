@@ -1,7 +1,17 @@
 import requests
 import hashlib
+import json
 from pathlib import Path
 from bs4 import BeautifulSoup
+
+
+# ==========================
+# Define HTML data directory
+# ==========================
+project_dir: Path= Path(__file__).resolve().parent.parent.parent # root directory of the project
+html_dir: Path= project_dir / "data" / "raw" / "html"
+html_dir.mkdir(parents=True, exist_ok=True) # create the html data directory if it doesn't exist
+# print(f"Project directory: {html_dir}")
 
 
 # =================================
@@ -28,10 +38,10 @@ def main():
 
     # 4. Get Health topic content
     # Loop through the health topics links and get the content of each topic page
-    for title, url in zip(health_topics["titles"], health_topics["urls"]):
+    for title, url, cat_type in zip(health_topics["titles"], health_topics["urls"], health_topics["types"]):
         print(f"Getting html for the {title}, with the url: {url}")
-        # html= get_html(url)
-        # print(html)
+        html= save_html(url, title, cat_type)
+        print(f"html for {title} saved successfully")
 
 
 # =======================================
@@ -52,5 +62,45 @@ def find_health_topics_links(html: str) -> dict:
         "types": types,
     }
 
+
+# ===============================================================
+# Save the html content of each topic and Index the topic content
+# ===============================================================
+def save_html(url: str, title: str, cat_type:str | None) -> None:
+    # 1. Get page
+    r= requests.get(url, timeout=15)
+    status_code= r.status_code # check if the request was successful
+
+    # 2. Check if the request was successful
+    if status_code != 200:
+        print(f"Error: Failed to retrieve content for URL: {url} with status code: {status_code}")
+    else:
+        print(f"Successfully retrieved content for URL: {url} with status code: {status_code}")
+
+    # 3. Get HTML content of the topic page
+    html= r.text
+
+    # 4. Create a hash for the url of the html
+    doc_id= hashlib.md5(url.encode()).hexdigest()
+    file_path= html_dir / f"{doc_id}.html"
+
+    # 5. Save the html using the hash as the filename in html_dir
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(html)
+
+    # 6. SAve Doc index
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(
+            json.dumps(
+                {
+                    "doc_id": doc_id,
+                    "url": url,
+                    "title": title,
+                    "cat_type": cat_type,
+                    "file_path": str(file_path)
+                }
+            ) + "\n"
+        )
+        
 
 if __name__ == "__main__":    main()
