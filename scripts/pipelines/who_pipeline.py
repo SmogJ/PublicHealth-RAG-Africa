@@ -96,11 +96,11 @@ def save_html(url: str, title: str, cat_type:str | None) -> None:
                     "doc_id": doc_id,
                     "url": url,
                     "title": title,
-                    "cat_type": cat_type,
+                    "type": cat_type,
                     "file_path": str(file_path)
                 }
             ) + "\n"
         )
-        
+
 
 if __name__ == "__main__":    main()
