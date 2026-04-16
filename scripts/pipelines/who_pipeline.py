@@ -89,7 +89,7 @@ def save_html(url: str, title: str, cat_type:str | None) -> tuple[str, Path]:
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html)
 
-    # 6. SAve Doc index
+    # 6. Save Doc index
     with open(index_file, "a", encoding="utf-8") as jsonl_file:
         json.dump(
             {
