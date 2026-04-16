@@ -82,7 +82,7 @@ def save_html(url: str, title: str, cat_type:str | None) -> None:
     html= r.text
 
     # 4. Create a hash for the url of the html
-    doc_id= hashlib.md5(url.encode()).hexdigest()
+    doc_id= hashlib.sha256(url.encode()).hexdigest()
     file_path= html_dir / f"{doc_id}.html"
 
     # 5. Save the html using the hash as the filename in html_dir
