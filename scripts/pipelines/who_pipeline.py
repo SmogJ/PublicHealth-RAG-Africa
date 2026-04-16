@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 project_dir: Path= Path(__file__).resolve().parent.parent.parent # root directory of the project
 html_dir: Path= project_dir / "data" / "raw" / "html"
 html_dir.mkdir(parents=True, exist_ok=True) # create the html data directory if it doesn't exist
+index_file: Path= project_dir / "data" / "raw" / "index_file.jsonl"
 # print(f"Project directory: {html_dir}")
 
 
@@ -89,7 +90,7 @@ def save_html(url: str, title: str, cat_type:str | None) -> None:
         f.write(html)
 
     # 6. SAve Doc index
-    with open(file_path, "w", encoding="utf-8") as f:
+    with open(index_file, "w", encoding="utf-8") as f:
         f.write(
             json.dumps(
                 {
