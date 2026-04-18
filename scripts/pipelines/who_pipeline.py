@@ -45,7 +45,7 @@ def main():
     #     print(f"html for {title} saved successfully")
 
     # 5. Extract Content if HTML
-    extract_content()
+    print(extract_content())
 
 
 # =======================================
@@ -129,7 +129,9 @@ def extract_content():
     
                 # 3. Extract content from html file
                 soup= BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser") 
-                
-
+                article= soup.find(name="article", class_="sf-detail-body-container sf-detail-body-wrapper health-topic--detail dynamic-content dynamic-content__article")
+                article_content= article.get_text(separator="\n", strip=True) if article else ""
+                print(f"Content extracted from '{file}' successfully")
+                return article_content
 
 if __name__ == "__main__":    main()
