@@ -7,7 +7,8 @@ from pathlib import Path
 # Define Extracted data file
 # ==========================
 project_dir: Path= Path(__file__).resolve().parent.parent.parent # root directory of the project
-html_dir: Path= project_dir / "data" / "raw" / "html"
+# Processed data
+processed_file: Path= project_dir / "data" / "html_publication" / "processed_file.jsonl"
 
 
 # # def main(kwargs):
