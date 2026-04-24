@@ -8,23 +8,21 @@ from bs4 import BeautifulSoup
 # ==========================
 # Define HTML data directory
 # ==========================
-# Raw html
 project_dir: Path= Path(__file__).resolve().parent.parent.parent # root directory of the project
+
+# Raw HTML
 html_dir: Path= project_dir / "data" / "raw" / "html"
 html_dir.mkdir(parents=True, exist_ok=True) # create the html data directory if it doesn't exist
 
-# index file for html index data
+# Index JSON
 index_file: Path= project_dir / "data" / "raw" / "index_file.jsonl"
-
-# Processed data
-processed_file: Path= project_dir / "data" / "html_publication" / "processed_file.jsonl"
+index_file.touch(exist_ok=True) # create the index file if it doesn't exist
 
 
-
-# =================================
-# Main function to run the pipeline
-# ================================
-def main():
+# ==========================
+# Run Health Topics Pipeline
+# ==========================
+def run():
     r= requests.get("https://www.who.int/health-topics")
 
     # 1. Check if the request was successful
@@ -47,28 +45,13 @@ def main():
     # Loop through the health topics links and get the content of each topic page
     for title, url, cat_type in zip(health_topics["titles"], health_topics["urls"], health_topics["types"]):
         print(f"Getting html for the {title}, with the url: {url}")
-        doc_id, file_path = save_html(url, title, cat_type)
-        print(f"html for {title} saved successfully")
+        doc_id, file_path= save_html(url, title, cat_type)
+        print(f"html for {title} saved successfully !!! \n\n\n")
 
-    # 5. Extract Content HTML
-    # a. Get index data from index_file
-    with open(index_file, "r", encoding="utf-8") as f:
-        # file_info= [(json.loads(line.split("\n")[0])["file_path"]).split("\\")[-1] for line in f]
-        # file_info= [(json.loads(line.split("\n")[0])["id"]) for line in f] 
-        file_title= [json.loads(line.split("\n")[0])["title"] for line in f]
-        # print(f"File title: {file_title}")   
-        # print(f"File info: {file_info}")     
-
-    # b. Get html files from html_dir
-    for file, title in zip(list(html_dir.glob("*.html")), file_title): # loop through all html files in the html_dir
-        file_id= file.stem
-        # html= str(file).split("\\")[-1]
-        if not file:
-            print(f"Error: {file} cannot be found in the html directory !!!")
-        else:
-            print(f"Extracting content from: \nTitle: {title} \nPath: {file} \n id: {file_id}...\n\n\n")
-            extract_content(file, file_id)
-            print(f"Content extracted from File with Title: {title} \nid: {file_id} successfully !!!\n\n\n")
+        # 5. Extract Content HTML and save the content as JSONL
+        print(f"Extracting content from: \nTitle: {title} \nPath: {file_path} \n id: {doc_id}...\n\n\n")
+        extract_content(file_path, doc_id, url, cat_type)
+        print(f"Content extracted from File with Title: {title} \nid: {doc_id} successfully !!!\n\n\n")
 
 
 # =======================================
@@ -93,7 +76,7 @@ def find_health_topics_links(html: str) -> dict:
 # ===============================================================
 # Save the html content of each topic and Index the topic content
 # ===============================================================
-def save_html(url: str, title: str, cat_type:str | None) -> tuple[str, Path] -> tuple[str, Path]:
+def save_html(url: str, title: str, cat_type:str | None) -> tuple[str, Path]:
     # 1. Get page
     r= requests.get(url, timeout=15)
     status_code= r.status_code # check if the request was successful
@@ -115,24 +98,13 @@ def save_html(url: str, title: str, cat_type:str | None) -> tuple[str, Path] -> 
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html)
 
-    # 6. Save Doc index
-    with open(index_file, "a", encoding="utf-8") as f:
-            f.write(json.dumps({
-                "id": doc_id,
-                "title": title,
-                "category": cat_type,
-                "type": "html",
-                "url": url,
-                "file_path": str(file_path)
-            }) + "\n")
-
     return doc_id, file_path
 
 
 # ======================================
 # Extract the content of each html page
 # ======================================
-def extract_content(file: Path, file_id: str) -> dict:
+def extract_content(file: Path, file_id: str, url: str, cat_type: str) -> dict:
     # 1. Extract html content
     soup= BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser") 
 
@@ -165,6 +137,19 @@ def extract_content(file: Path, file_id: str) -> dict:
             article_credits= article_credits.get_text(separator="\n", strip=True)
         else:
             article_credits= None
+        
+    # 2. Save Doc index
+    with open(index_file, "a", encoding="utf-8") as f:
+            f.write(json.dumps({
+                "doc_id": file_id,
+                "title": article_title,
+                "category": cat_type,
+                "type": "html",
+                "url": url,
+                "file_path": str(file),
+                "content": article_content,
+                "credits": article_credits,
+            }) + "\n")
 
     
     return {
@@ -175,4 +160,4 @@ def extract_content(file: Path, file_id: str) -> dict:
         }
             
 
-if __name__ == "__main__":    main()
+if __name__ == "__main__":    run()
