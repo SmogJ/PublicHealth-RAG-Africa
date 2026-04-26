@@ -18,6 +18,12 @@ html_dir.mkdir(parents=True, exist_ok=True) # create the html data directory if 
 index_file: Path= project_dir / "data" / "raw" / "index_file.jsonl"
 index_file.touch(exist_ok=True) # create the index file if it doesn't exist
 
+# Processed JSON
+processed_dir: Path= project_dir / "data" / "processed" / "html_publication"
+processed_dir.mkdir(exist_ok= True) # create the processed data directory if it doesn't exist
+processed_file: Path= processed_dir / "all_documents.jsonl"
+processed_file.touch(exist_ok=True) # create the index file if it doesn't exist
+
 
 # ==========================
 # Run Health Topics Pipeline
@@ -37,9 +43,9 @@ def run():
 
     # 3. Get all health topics links and types
     health_topics= find_health_topics_links(health_topics_html)
-    print(f"Number of 'a' tags found: {len(health_topics['types'])}")
-    print(f"First 5 urls: {health_topics['urls'][:5]}")
-    print(f"Last 5 urls: {health_topics['urls'][-5:]}")
+    print(f"Number of 'TOPICS' found: {len(health_topics['types'])}\n")
+    print(f"First 5 urls: {health_topics['urls'][:5]}\n")
+    print(f"Last 5 urls: {health_topics['urls'][-5:]} \n\n\n")
 
     # 4. Get Health topic content
     # Loop through the health topics links and get the content of each topic page
@@ -155,12 +161,28 @@ def extract_content(file: Path, file_id: str, url: str, cat_type: str) -> dict:
         "credits": article_credits,
         "content": article_content
         }
-            
 
+
+# ==============================
+# Validate the extracted content
+# ==============================
+def validation():
+    ...
+    # 1. Check if the extracted content is not empty
+    # 2. Check if the extracted content is a string
+    # 3. Check if the extracted content has more than 200 characters
+
+
+# ===============================================
+# Process and Save the extracted content as JSONL
+# ===============================================
 def processed_doc():
     # 1. Clean the content of the article
+    # remove spacing and new lines
+    # remove html tags
+    # remove special characters
     # 2. Save Processed content as JSONL
-    with open(index_file, "a", encoding="utf-8") as f:
+    with open(processed_file, "a", encoding="utf-8") as f:
             f.write(json.dumps({
                 "doc_id": file_id,
                 "title": article_title,
