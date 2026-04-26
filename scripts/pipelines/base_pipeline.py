@@ -11,13 +11,15 @@ project_dir: Path= Path(__file__).resolve().parent.parent.parent # root director
 processed_file: Path= project_dir / "data" / "html_publication" / "processed_file.jsonl"
 
 
-# # def main(kwargs):
-#     ...
+def main(kwargs):
+    ...
 
 
 # ==========================
 # Clean Content
 # ==========================
+def clean_content():
+    ...
     # 1. get content form jsonl file
     # 2. select only the content field from the jsonl file
     # Clean the content
@@ -31,7 +33,7 @@ processed_file: Path= project_dir / "data" / "html_publication" / "processed_fil
 # ======================================
 def save_content():
     ...
-    # 1. Get content from 
+    # 1. Get content from cleaned content
     # 2. Save content as JSONL
 
 
