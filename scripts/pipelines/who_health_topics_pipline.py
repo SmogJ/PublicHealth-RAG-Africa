@@ -23,7 +23,7 @@ index_file.touch(exist_ok=True) # create the index file if it doesn't exist
 # Run Health Topics Pipeline
 # ==========================
 def run():
-    r= requests.get("https://www.who.int/health-topics")
+    r= requests.get("https://www.who.int/health-topics", timeout=15)
 
     # 1. Check if the request was successful
     if r.status_code != 200:
@@ -98,6 +98,17 @@ def save_html(url: str, title: str, cat_type:str | None) -> tuple[str, Path]:
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html)
 
+    # 6. Index the topic content in the index file as JSONL
+    with open(index_file, "a", encoding="utf-8") as f:
+    f.write(json.dumps({
+        "doc_id": doc_id,
+        "type": "html",
+        "category": cat_type,
+        "url": url,
+        "file_path": str(file_path),
+    }) + "\n")
+
+
     return doc_id, file_path
 
 
@@ -116,7 +127,7 @@ def extract_content(file: Path, file_id: str, url: str, cat_type: str) -> dict:
     if not article:
         raise ValueError(f"Error: Failed to find article content for file: {file}")
     else:
-        # 2. Extracting Article content
+        # a. Extracting Article content
         article_content: str = article.find(name="div", class_="sf_colsOut flex-clear") 
         if article_content:
             article_content= article_content.get_text(separator="\n", strip=True)
@@ -124,21 +135,31 @@ def extract_content(file: Path, file_id: str, url: str, cat_type: str) -> dict:
             raise ValueError(f"Error: Failed to find article content for file: {file}")
         # article_content= soup.find(name="div", class_="sf_colsIn single-tabContent").get_text(separator="\n") if soup.find(name="div", class_="sf_colsOut flex-clear") else None
 
-        # 3. Extracting article titlea
+        # b. Extracting article titlea
         article_title: str = article.find(name="h1", class_="dynamic-content__title-text") 
         if article_title:
             article_title= article_title.get_text(strip=True)
         else:
             raise ValueError(f"Error: Failed to find article title for file: {file}")
         
-        # 4. Extracting article credits
+        # c. Extracting article credits
         article_credits: str = article.find(name="div", class_= "sf-image-credit__inner")
         if article_credits:
             article_credits= article_credits.get_text(separator="\n", strip=True)
         else:
             article_credits= None
-        
-    # 2. Save Doc index
+
+    return {
+        "id": file_id,
+        "title": article_title,
+        "credits": article_credits,
+        "content": article_content
+        }
+            
+
+def processed_doc():
+    # 1. Clean the content of the article
+    # 2. Save Processed content as JSONL
     with open(index_file, "a", encoding="utf-8") as f:
             f.write(json.dumps({
                 "doc_id": file_id,
@@ -150,14 +171,5 @@ def extract_content(file: Path, file_id: str, url: str, cat_type: str) -> dict:
                 "content": article_content,
                 "credits": article_credits,
             }) + "\n")
-
-    
-    return {
-        "id": file_id,
-        "title": article_title,
-        "credits": article_credits,
-        "content": article_content
-        }
-            
 
 if __name__ == "__main__":    run()
