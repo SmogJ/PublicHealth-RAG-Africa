@@ -166,17 +166,27 @@ def extract_content(file: Path, file_id: str, url: str, cat_type: str) -> dict:
 # ==============================
 # Validate the extracted content
 # ==============================
-def validation():
-    ...
+def validation(content) -> bool:
     # 1. Check if the extracted content is not empty
+    if content == "" or content is None:
+        print("Error: Extracted content is empty.")
+        return False
     # 2. Check if the extracted content is a string
+    if not isinstance(content, str):
+        print("Error: Extracted content is not a string.")
+        return False
     # 3. Check if the extracted content has more than 200 characters
+    if len(content) <= 200:
+        print("Error: Extracted content is too short.")
+        return False
+
+    return True
 
 
 # ===============================================
 # Process and Save the extracted content as JSONL
 # ===============================================
-def processed_doc():
+def processed_doc(kwarg) -> None:
     # 1. Clean the content of the article
     # remove spacing and new lines
     # remove html tags
@@ -184,14 +194,14 @@ def processed_doc():
     # 2. Save Processed content as JSONL
     with open(processed_file, "a", encoding="utf-8") as f:
             f.write(json.dumps({
-                "doc_id": file_id,
-                "title": article_title,
-                "category": cat_type,
-                "type": "html",
-                "url": url,
-                "file_path": str(file),
-                "content": article_content,
-                "credits": article_credits,
+                "doc_id":,
+                "title": ,
+                "category":,
+                "type":,
+                "url":,
+                "file_path":,
+                "content":,
+                "credits":,
             }) + "\n")
 
 if __name__ == "__main__":    run()
