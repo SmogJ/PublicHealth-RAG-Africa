@@ -1,6 +1,7 @@
 import requests
 import hashlib
 import json
+import re
 from pathlib import Path
 from bs4 import BeautifulSoup
 
@@ -56,8 +57,19 @@ def run():
 
         # 5. Extract Content HTML and save the content as JSONL
         print(f"Extracting content from: \nTitle: {title} \nPath: {file_path} \n id: {doc_id}...\n\n\n")
-        extract_content(file_path, doc_id, url, cat_type)
+        extract_dict = extract_content(file_path, doc_id, url, cat_type)
         print(f"Content extracted from File with Title: {title} \nid: {doc_id} successfully !!!\n\n\n")
+    
+        # 6. Clean, standarize, and save the extracted content as JSONL
+        print(processed_text(
+            content= extract_dict["content"],
+            credits= extract_dict["credits"],
+            title= extract_dict["title"],
+            url= url,
+            category= cat_type,
+            file_path= file_path,
+            file_id= doc_id,
+        ))
 
 
 # =======================================
@@ -106,13 +118,13 @@ def save_html(url: str, title: str, cat_type:str | None) -> tuple[str, Path]:
 
     # 6. Index the topic content in the index file as JSONL
     with open(index_file, "a", encoding="utf-8") as f:
-    f.write(json.dumps({
-        "doc_id": doc_id,
-        "type": "html",
-        "category": cat_type,
-        "url": url,
-        "file_path": str(file_path),
-    }) + "\n")
+        f.write(json.dumps({
+            "doc_id": doc_id,
+            "type": "html",
+            "category": cat_type,
+            "url": url,
+            "file_path": str(file_path),
+        }) + "\n")
 
 
     return doc_id, file_path
@@ -186,22 +198,26 @@ def validation(content) -> bool:
 # ===============================================
 # Process and Save the extracted content as JSONL
 # ===============================================
-def processed_doc(kwarg) -> None:
+def processed_text(**kwargs: dict):
     # 1. Clean the content of the article
+    content= kwargs
     # remove spacing and new lines
+    content_text= content["content"].replace("\n", " ")
+    return content_text
     # remove html tags
     # remove special characters
     # 2. Save Processed content as JSONL
-    with open(processed_file, "a", encoding="utf-8") as f:
-            f.write(json.dumps({
-                "doc_id":,
-                "title": ,
-                "category":,
-                "type":,
-                "url":,
-                "file_path":,
-                "content":,
-                "credits":,
-            }) + "\n")
+    # with open(processed_file, "a", encoding="utf-8") as f:
+    #         f.write(json.dumps({
+    #             "doc_id": content["id"],
+    #             "title": content["title"],
+    #             "category": content["category"],
+    #             "type": content["type"],
+    #             "url": content["url"],
+    #             "file_path": content["file_path"],
+    #             "content": ,
+    #             "credits":,
+    #         }) + "\n")
+
 
 if __name__ == "__main__":    run()
